@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Power of One</title>
+    <title>Let's Bring It Down</title>
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Tenor+Sans&display=swap" rel="stylesheet">
     <style>
       body {
@@ -31,7 +31,7 @@
         color: #18334f;
       }
       .main {
-        margin-top: 30vw;
+        margin-top: calc(calc(100vh - 200px) / 2);
         text-align: center;
       }
       .main-title, .main-country {
@@ -55,17 +55,18 @@
   </head>
   <body>
     <header class="header">
-      <a class="header-title" href="/">Power of One</h1>
+      <a class="header-title" href="/">Lets Bring It Down</h1>
       <a class="header-faq" href="#faq">FAQ</a>
     </header>
 
     <div id="home" style="display: none">
       <main class="main">
         <h1 class="main-title">The Number</h1>
-        <main class="main-number glow">1.22</main>
+        <main class="main-number">1.22</main>
         <div class="main-country">United States</div>
       </main>
     </div>
+
     <div id="faq" style="display: none">
       <aside class="faq">
         <h2>FAQ</h2>
@@ -73,8 +74,7 @@
     </div>
 
     <script>
-      const showPage = () => {
-        console.log('has run')
+      function showPage() {
         if (document.location.hash === '#faq') {
           document.querySelector('#faq').style.display = 'block'
           document.querySelector('#home').style.display = 'none'
