@@ -7,10 +7,12 @@
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Tenor+Sans&display=swap" rel="stylesheet">
     <style>
       body {
-        font-family: 'Archivo Black', sans-serif;
-        text-transform: uppercase;
         max-width: 500px;
         margin: 10px auto;
+      }
+      .header, .main {
+        font-family: 'Archivo Black', sans-serif;
+        text-transform: uppercase;
       }
       .header {
         display: grid;
@@ -31,7 +33,7 @@
         color: #18334f;
       }
       .main {
-        margin-top: calc(calc(100vh - 200px) / 2);
+        margin-top: calc(40vh - 90px);
         text-align: center;
       }
       .main-title, .main-country {
@@ -50,6 +52,9 @@
       .faq {
         font-family: 'Tenor Sans', sans-serif;
         margin: 10px;
+      }
+      .faq-question {
+        font-weight: bold;
       }
     </style>
   </head>
@@ -70,6 +75,36 @@
     <div id="faq" style="display: none">
       <aside class="faq">
         <h2>FAQ</h2>
+
+        <p class="faq-question">What are we bringing down?</p>
+        <p class="faq-answer">
+          The purpose of this website is to encourage, inspire, and motivate everyone to take part in civic, daily actions to bring down the coronavirus infection rate. As of March 25, 2020, the rate is 1.22. The faster we get to 1, the faster we make it out of this epidemic. Let's do this! 
+        </p>
+
+        <p class="faq-question">How can I help?</p>
+        <p class="faq-answer">
+          Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
+        </p>
+        
+        <p class="faq-question">How does this get calculated?</p>
+        <p class="faq-answer">
+          The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:weiss.steven@gmail.com">weiss.steven@gmail.com</a>
+        </p>
+        
+        <p class="faq-question">What is the geographic focus?</p>
+        <p class="faq-answer">
+          At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
+        </p>
+        
+        <p class="faq-question">When are the numbers updated?</p>
+        <p class="faq-answer">
+          Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why note crack a beer to celebrate the progress made today? 
+        </p>
+        
+        <p class="faq-question">What's next?</p>
+        <p class="faq-answer">
+          There are many things we should bring down: the number of women murdered by their partner, the number of citizens who do not vote, the number of kids who go to school on an empty stomach, and many, many more. Once the pandemic is behind us (soon, if we all work in unison), we'll shift the purpose of this website to another number that, together, we should bring down. </p>
+        </p>
       </aside>
     </div>
 
