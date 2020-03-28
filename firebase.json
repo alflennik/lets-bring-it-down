@@ -5,6 +5,13 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "notNextTest"
+      }
     ]
-  }
+  },
+  "functions": {}
 }
