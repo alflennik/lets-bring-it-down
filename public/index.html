@@ -17,12 +17,12 @@
       }
 
       .header {
-        padding: 15px 30px;
+        padding: 15px;
         display: grid;
         grid-template-columns: auto auto;
         justify-content: space-between;
       }
-      .header-title, .header-faq {
+      .header-title, .header-faq, .header-states {
         color: white;
         text-decoration: none;
       }
@@ -36,8 +36,13 @@
         padding: 2px 3px;
         text-transform: uppercase;
       }
-      .header-faq {
+      .header-menu {
         font-weight: bold;
+        display: flex;
+        align-items: center;
+      }
+      .header-faq {
+        margin-right: 10px;
       }
   
       .center {
@@ -53,11 +58,19 @@
         font-weight: bold;
         line-height: 1;
       }
+      .center-infection-rate,
       .center-usa-text {
         font-size: 20px;
         font-weight: bold;
-        letter-spacing: 9px;
         text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .center-infection-rate {
+        letter-spacing: 1px;
+        line-height: 1;
+      }
+      .center-usa-text {
+        letter-spacing: 9px;
       }
       .center-last-update {
         font-size: 17px;
@@ -86,18 +99,21 @@
         fill: white;
       }
 
-      .faq {
+      .content {
         background: white;
         padding: 15px;
-        line-height: 32px;
       }
-      .faq-inner {
+      .content-inner {
         max-width: 1000px;
         margin: 0 auto;
       }
-      .faq-title {
+      .content-title {
         font-size: 26px;
         margin: 15px 0;
+      }
+
+      .faq {
+        line-height: 32px;
       }
       .faq-question {
         font-size: 16px;
@@ -106,21 +122,45 @@
       .faq a {
         color: #ff485e
       }
+
+      .states {
+        background: white;
+        text-align: left;
+        padding-top: 0;
+      }
+      .states-table {
+        border-collapse: collapse;
+      }
+      .states-table th {
+        font-weight: bold;
+      }
+      .states-table th, .states-table td {
+        padding: 7px 15px;
+        width: 50%;
+      }
+      .states-table tr:nth-child(even) {
+        background: #eee;
+      }
+
     </style>
   </head>
   <body>
     <main class="above-fold">
       <header class="header">
         <a class="header-title" href="/">Lets Bring It <span>Down</span></a>
-        <a class="header-faq" href="#faq">FAQ</a>
+        <div class="header-menu">
+          <a class="header-faq" href="#faq">FAQ</a>
+          <a class="header-states" href="#states">States</a>
+        </div>
       </header>
 
       <div class="center">
         <img class="center-usa-image" alt="usa" src="usa.svg" />
 
+        <div class="center-infection-rate">Today's Infection Rate</div>
         <div class="center-number">1.252</div>
         <div class="center-usa-text">United States</div>
-        <div class="center-last-update">Last Update: 11:30pm EST</div>
+        <div class="center-last-update" id="last-update"></div>
       </div>
 
       <a class="go-down" href="#faq">
@@ -128,67 +168,154 @@
       </a>
     </main>
 
-    <aside class="faq" id="faq">
-      <div class="faq-inner">
-        <h2 class="faq-title">FAQ</h2>
+    <aside class="content" id="faq">
+      <div class="content-inner">
+        <div class="faq">
+          <h2 class="content-title">FAQ</h2>
+          <p class="faq-question">What are we bringing down?</p>
+          <p class="faq-answer">
+            The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.00.  The faster we get to 1.00, the faster we can get back to normal.  
+          </p>
+          <p class="faq-answer">
+            This dashboard is to encourage, inspire, and motivate everyone to do their part -- because it matters!
+          </p>
+          <p class="faq-answer">
+            Let's do this!
+          </p>
 
-        <p class="faq-question">What are we bringing down?</p>
-        <p class="faq-answer">
-          The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.00.  The faster we get to 1.00, the faster we can get back to normal.  
-        </p>
-        <p class="faq-answer">
-          This dashboard is to encourage, inspire, and motivate everyone to do their part -- because it matters!
-        </p>
-        <p class="faq-answer">
-          Let's do this!
-        </p>
+          <p class="faq-question">Why the number 1.00?</p>
+          <p class="faq-answer">
+            The number you are seeing is the infection rate of your state.  The goal is to decrease your number to 1.00.
+          </p>
+          <p class="faq-answer">
+            The number 1.00 reflects the moment where cases have stopped growing.  
+          </p>
+          <p class="faq-answer">
+            From that moment, we will treat those who have it, hospitals can begin to breathe and businesses can begin to plan again. 
+          </p>
 
-        <p class="faq-question">Why the number 1.00?</p>
-        <p class="faq-answer">
-          The number you are seeing is the infection rate of your state.  The goal is to decrease your number to 1.00.
-        </p>
-        <p class="faq-answer">
-          The number 1.00 reflects the moment where cases have stopped growing.  
-        </p>
-        <p class="faq-answer">
-          From that moment, we will treat those who have it, hospitals can begin to breathe and businesses can begin to plan again. 
-        </p>
+          <p class="faq-question">How can I help?</p>
+          <p class="faq-answer">
+            Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
+          </p>
+          
+          <p class="faq-question">How does this get calculated?</p>
+          <p class="faq-answer">
+            The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:letsbringitdowntoday@gmail.com">letsbringitdowntoday@gmail.com</a>
+          </p>
+          
+          <p class="faq-question">What is the geographic focus?</p>
+          <p class="faq-answer">
+            At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
+          </p>
+          
+          <p class="faq-question">When are the numbers updated?</p>
+          <p class="faq-answer">
+            Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
+          </p>
+        </div>
+      </div>
 
-        <p class="faq-question">How can I help?</p>
-        <p class="faq-answer">
-          Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
-        </p>
-        
-        <p class="faq-question">How does this get calculated?</p>
-        <p class="faq-answer">
-          The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:letsbringitdowntoday@gmail.com">letsbringitdowntoday@gmail.com</a>
-        </p>
-        
-        <p class="faq-question">What is the geographic focus?</p>
-        <p class="faq-answer">
-          At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
-        </p>
-        
-        <p class="faq-question">When are the numbers updated?</p>
-        <p class="faq-answer">
-          Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
-        </p>
+      <div class="states" id="states">
+        <h2 class="content-title">States</h2>
+        <table class="states-table">
+          <thead>
+            <tr>
+              <th class="states-header-state">State</th>
+              <th class="states-header-infection-rate">Infection Rate</th>
+            </tr>
+          </thead>
+          <tbody id="states-body">
+          </tbody>
+        </table>
       </div>
     </aside>
 
+    <script src="smooth-scroll.min.js"></script>
+    <script src="moment.min.js"></script>
+
     <script>
+      const rawData = {
+        lastUpdate: '2020-03-28T00:57:34-04:00',
+        total: { name: 'United States', infectionRate: '1.178' },
+        regions: [
+          { name: 'Alabama', infectionRate: '1.119' },
+          { name: 'Alaska', infectionRate: '1.034' },
+          { name: 'Arizona', infectionRate: '1.236' },
+          { name: 'Arkansas', infectionRate: '1.121' },
+          { name: 'California', infectionRate: '1.163' },
+          { name: 'Colorado', infectionRate: '1.002' },
+          { name: 'Connecticut', infectionRate: '1.216' },
+          { name: 'Delaware', infectionRate: '1.202' },
+          { name: 'District of Columbia', infectionRate: '1.148' },
+          { name: 'Florida', infectionRate: '1.187' },
+          { name: 'Georgia', infectionRate: '1.238' },
+          { name: 'Hawaii', infectionRate: '1.104' },
+          { name: 'Idaho', infectionRate: '1.288' },
+          { name: 'Illinois', infectionRate: '1.161' },
+          { name: 'Indiana', infectionRate: '1.341' },
+          { name: 'Iowa', infectionRate: '1.238' },
+          { name: 'Kansas', infectionRate: '1.165' },
+          { name: 'Kentucky', infectionRate: '1.179' },
+          { name: 'Louisiana', infectionRate: '1.160' },
+          { name: 'Maine', infectionRate: '1.077' },
+          { name: 'Maryland', infectionRate: '1.248' },
+          { name: 'Massachusetts', infectionRate: '1.254' },
+          { name: 'Michigan', infectionRate: '1.217' },
+          { name: 'Minnesota', infectionRate: '1.131' },
+          { name: 'Mississippi', infectionRate: '1.162' },
+          { name: 'Missouri', infectionRate: '1.219' },
+          { name: 'Montana', infectionRate: '1.174' },
+          { name: 'Nebraska', infectionRate: '1.098' },
+          { name: 'Nevada', infectionRate: '1.216' },
+          { name: 'New Hampshire', infectionRate: '1.133' },
+          { name: 'New Jersey', infectionRate: '1.221' },
+          { name: 'New Mexico', infectionRate: '1.169' },
+          { name: 'New York', infectionRate: '1.156' },
+          { name: 'North Carolina', infectionRate: '1.168' },
+          { name: 'North Dakota', infectionRate: '1.250' },
+          { name: 'Ohio', infectionRate: '1.237' },
+          { name: 'Oklahoma', infectionRate: '1.230' },
+          { name: 'Oregon', infectionRate: '1.240' },
+          { name: 'Pennsylvania', infectionRate: '1.235' },
+          { name: 'Rhode Island', infectionRate: '1.187' },
+          { name: 'South Carolina', infectionRate: '1.218' },
+          { name: 'South Dakota', infectionRate: '1.207' },
+          { name: 'Tennessee', infectionRate: '1.168' },
+          { name: 'Texas', infectionRate: '1.193' },
+          { name: 'Utah', infectionRate: '1.161' },
+          { name: 'Vermont', infectionRate: '1.141' },
+          { name: 'Virginia', infectionRate: '1.232' },
+          { name: 'Washington', infectionRate: '1.078' },
+          { name: 'West Virginia', infectionRate: '1.316' },
+          { name: 'Wisconsin', infectionRate: '1.214' },
+          { name: 'Wyoming', infectionRate: '1.243' },
+          { name: 'Puerto Rico', infectionRate: '1.190' },
+        ]
+      }
+
+      rawData.regions.forEach(region => {
+        const row = document.createElement('tr')
+        row.innerHTML = `
+          <td class="states-name">${region.name}</td>
+          <td class="states-infection-rate">${region.infectionRate}</td>
+        `
+        document.querySelector('#states-body').appendChild(row)
+      })
+
+      const lastUpdateFormatted = moment(rawData.lastUpdate).fromNow()
+      document.querySelector('#last-update').textContent = `Last updated ${lastUpdateFormatted}`
+
       document.querySelectorAll('a').forEach(element => {
         element.addEventListener('click', event => {
-          if (element.attributes.href.value !== '#faq') return
+          const anchors = ['#faq', '#states']
+          const currentUrl = element.attributes.href.value
+          if (!anchors.includes(currentUrl)) return
           event.preventDefault()
-          document.querySelector('#faq').scrollIntoView({ 
-            behavior: 'smooth' 
-          })
+          document.querySelector(currentUrl).scrollIntoView({ behavior: 'smooth' })
         })
       })
     </script>
-
-    <script src="smooth-scroll.min.js"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162041222-1"></script>
