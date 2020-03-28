@@ -114,20 +114,30 @@
       .states {
         background: white;
         text-align: left;
+        padding: 1.5em 0;
       }
-      .states-table {
-        border-collapse: collapse;
+      .states .content-title {
+        text-align: center;
       }
-      .states-table th {
+
+      .states-link {
+        display: block;
+        text-decoration: none;
+        color: black;
+        padding: 15px;
+        border-bottom: 2px solid #eee;
+      }
+      .states-inner-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 10px;
+      }
+      .states-name {
         font-weight: bold;
       }
-      .states-table th, .states-table td {
-        padding: 7px 15px;
-        width: 50%;
+      .states-caret {
+        width: 10px;
       }
-      .states-table tr:nth-child(even) {
-        background: #eee;
-      }
+
 
       .faq {
         background-color: #1c2458;
@@ -146,6 +156,18 @@
       }
       .faq a {
         color: #a0e5ff;
+      }
+
+      .icons-twitter {
+        margin-right: 10px;
+      }
+      .icons-twitter, 
+      .icons-instagram {
+        text-decoration: none;
+      }
+      .icons-twitter img,
+      .icons-instagram img {
+        width: 40px;
       }
 
     </style>
@@ -173,19 +195,11 @@
       </a>
     </main>
 
-    <div class="states content" id="states">
+    <div class="states" id="states">
       <div class="content-inner">
         <h2 class="content-title">States</h2>
-        <table class="states-table">
-          <thead>
-            <tr>
-              <th class="states-header-state">State</th>
-              <th class="states-header-infection-rate">Infection Rate</th>
-            </tr>
-          </thead>
-          <tbody id="states-body">
-          </tbody>
-        </table>
+      </div>
+      <div class="states-table" id="states-body">
       </div>
     </div>
 
@@ -233,6 +247,15 @@
         <p class="faq-answer">
           Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
         </p>
+
+        <div class="icons">
+          <a class="icons-twitter" target="_blank" href="https://twitter.com/letsbringitdown">
+            <img alt="Visit our Twitter" src="twitter.svg" />
+          </a>
+          <a class="icons-instagram" target="_blank" href="https://www.instagram.com/letsbringitdown/">
+            <img alt="Visit our Instagram" src="instagram.svg" />
+          </a>
+        </div>
       </div>
     </div>
 
@@ -240,31 +263,39 @@
     <script src="moment.min.js"></script>
 
     <script>
+      // Will be replaced with a json string by the cloud function
       const rawData = JSON.parse(RAW_DATA_FROM_SERVER)
 
+      // Populate primary region data with the United States as a fallback
       const slug = window.location.pathname.slice(1)
-      const regionData = rawData.regions.find(data => data.slug === slug) || rawData.total
-      document.querySelector('#primary-region').textContent = regionData.name
-      document.querySelector('#primary-infection-rate').textContent = regionData.infectionRate
-
-      if (regionData.image) {
-        document.querySelector('#primary-region-outline').setAttribute('src', regionData.image) 
+      const region = rawData.regions.find(data => data.slug === slug) || rawData.total
+      document.querySelector('#primary-region').textContent = region.name
+      document.querySelector('#primary-infection-rate').textContent = region.infectionRate
+      if (region.image) {
+        document.querySelector('#primary-region-outline').setAttribute('src', region.image) 
       } else {
         document.querySelector('#primary-region-outline').style.display = 'none'
       }
+      const lastUpdateFormatted = moment(rawData.lastUpdate).fromNow()
+      document.querySelector('#last-update').textContent = `Last updated ${lastUpdateFormatted}`
 
+      // Populate states table
       rawData.regions.forEach(region => {
-        const row = document.createElement('tr')
+        const row = document.createElement('div')
+        row.classList.add('states-row')
         row.innerHTML = `
-          <td class="states-name">${region.name}</td>
-          <td class="states-infection-rate">${region.infectionRate}</td>
+          <a class="states-link" href="/${region.slug}">
+            <div class="content-inner states-inner-row">
+              <div class="states-name">${region.name}</div>
+              <div class="states-infection-rate">${region.infectionRate}</div>
+              <img class="states-caret" src="angle-right-solid.svg" alt="View region" />
+            </div>
+          </a>
         `
         document.querySelector('#states-body').appendChild(row)
       })
 
-      const lastUpdateFormatted = moment(rawData.lastUpdate).fromNow()
-      document.querySelector('#last-update').textContent = `Last updated ${lastUpdateFormatted}`
-
+      // Smooth scrolling page links
       document.querySelectorAll('a').forEach(element => {
         element.addEventListener('click', event => {
           const anchors = ['#faq', '#states']
