@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,700" rel="stylesheet">
     <title>Let's Bring It Down</title>
     <style>
       body {
@@ -14,10 +14,12 @@
       .above-fold {
         color: white;
         height: 100vh;
+        min-height: 375px;
+        position: relative;
       }
 
       .header {
-        padding: 15px;
+        padding: 1.5rem;
         display: grid;
         grid-template-columns: auto auto;
         justify-content: space-between;
@@ -41,8 +43,8 @@
         display: flex;
         align-items: center;
       }
-      .header-faq {
-        margin-right: 10px;
+      .header-menu > :first-child {
+        margin: 0 0.75rem 0 1.5rem;
       }
   
       .center {
@@ -59,18 +61,15 @@
         line-height: 1;
       }
       .center-infection-rate,
-      .center-usa-text {
+      .center-region-name {
         font-size: 20px;
         font-weight: bold;
         text-transform: uppercase;
         white-space: nowrap;
+        letter-spacing: 1px;
       }
       .center-infection-rate {
-        letter-spacing: 1px;
         line-height: 1;
-      }
-      .center-usa-text {
-        letter-spacing: 9px;
       }
       .center-last-update {
         font-size: 17px;
@@ -100,33 +99,21 @@
       }
 
       .content {
-        background: white;
-        padding: 15px;
+        padding: 1.5em;
       }
       .content-inner {
-        max-width: 1000px;
+        max-width: 40em;
         margin: 0 auto;
       }
       .content-title {
         font-size: 26px;
-        margin: 15px 0;
-      }
-
-      .faq {
-        line-height: 32px;
-      }
-      .faq-question {
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .faq a {
-        color: #ff485e
+        margin: 0 0 0.75rem 0;
+        line-height: 1;
       }
 
       .states {
         background: white;
         text-align: left;
-        padding-top: 0;
       }
       .states-table {
         border-collapse: collapse;
@@ -142,15 +129,34 @@
         background: #eee;
       }
 
+      .faq {
+        background-color: #1c2458;
+        color: white;
+      }
+      .faq-question, .faq-answer {
+        line-height: 1.5;
+      }
+      .faq-question {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+      }
+      .faq-answer {
+        margin: 0 0 1.5em 0;
+      }
+      .faq a {
+        color: #a0e5ff;
+      }
+
     </style>
   </head>
   <body>
     <main class="above-fold">
       <header class="header">
-        <a class="header-title" href="/">Lets Bring It <span>Down</span></a>
+        <a class="header-title" href="/">Let's Bring It <span>Down</span></a>
         <div class="header-menu">
-          <a class="header-faq" href="#faq">FAQ</a>
           <a class="header-states" href="#states">States</a>
+          <a class="header-faq" href="#faq">FAQ</a>
         </div>
       </header>
 
@@ -158,78 +164,78 @@
         <img class="center-usa-image" alt="usa" src="usa.svg" />
 
         <div class="center-infection-rate">Today's Infection Rate</div>
-        <div class="center-number" id="united-states-infection-rate"></div>
-        <div class="center-usa-text">United States</div>
+        <div class="center-number" id="primary-infection-rate"></div>
+        <div class="center-region-name" id="primary-region"></div>
         <div class="center-last-update" id="last-update"></div>
       </div>
 
-      <a class="go-down" href="#faq">
-        <svg viewBox="0 0 1024 1024" aria-labelledby="bmsi-ant-circle-o-down-title" id="si-ant-circle-o-down"><title id="bmsi-ant-circle-o-down-title">icon circle-o-down</title><path d="M512 64q91 0 174 35 81 34 143 96t96 143q35 83 35 174t-35 174q-34 81-96 143t-143 96q-83 35-174 35t-174-35q-81-34-143-96T99 686q-35-83-35-174t35-174q34-81 96-143t143-96q83-35 174-35zm0-64Q373 0 255 68.5T68.5 255 0 512t68.5 257T255 955.5t257 68.5 257-68.5T955.5 769t68.5-257-68.5-257T769 68.5 512 0zm22 695l258-257q9-10 9-23t-9-23q-10-9-23-9t-23 9L511 627 278 394q-10-10-23-10t-23 10q-9 9-9 22t9 23l256 256q10 9 23 9t23-9z"></path></svg>
+      <a class="go-down" href="#states">
+        <svg viewBox="0 0 1024 1024"><path d="M512 64q91 0 174 35 81 34 143 96t96 143q35 83 35 174t-35 174q-34 81-96 143t-143 96q-83 35-174 35t-174-35q-81-34-143-96T99 686q-35-83-35-174t35-174q34-81 96-143t143-96q83-35 174-35zm0-64Q373 0 255 68.5T68.5 255 0 512t68.5 257T255 955.5t257 68.5 257-68.5T955.5 769t68.5-257-68.5-257T769 68.5 512 0zm22 695l258-257q9-10 9-23t-9-23q-10-9-23-9t-23 9L511 627 278 394q-10-10-23-10t-23 10q-9 9-9 22t9 23l256 256q10 9 23 9t23-9z"></path></svg>
       </a>
     </main>
 
-    <aside class="content" id="faq">
+    <div class="states content" id="states">
       <div class="content-inner">
-        <div class="faq">
-          <h2 class="content-title">FAQ</h2>
-          <p class="faq-question">What are we bringing down?</p>
-          <p class="faq-answer">
-            The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.00.  The faster we get to 1.00, the faster we can get back to normal.  
-          </p>
-          <p class="faq-answer">
-            This dashboard is to encourage, inspire, and motivate everyone to do their part -- because it matters!
-          </p>
-          <p class="faq-answer">
-            Let's do this!
-          </p>
-
-          <p class="faq-question">Why the number 1.00?</p>
-          <p class="faq-answer">
-            The number you are seeing is the infection rate of your state.  The goal is to decrease your number to 1.00.
-          </p>
-          <p class="faq-answer">
-            The number 1.00 reflects the moment where cases have stopped growing.  
-          </p>
-          <p class="faq-answer">
-            From that moment, we will treat those who have it, hospitals can begin to breathe and businesses can begin to plan again. 
-          </p>
-
-          <p class="faq-question">How can I help?</p>
-          <p class="faq-answer">
-            Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
-          </p>
-          
-          <p class="faq-question">How does this get calculated?</p>
-          <p class="faq-answer">
-            The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:letsbringitdowntoday@gmail.com">letsbringitdowntoday@gmail.com</a>
-          </p>
-          
-          <p class="faq-question">What is the geographic focus?</p>
-          <p class="faq-answer">
-            At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
-          </p>
-          
-          <p class="faq-question">When are the numbers updated?</p>
-          <p class="faq-answer">
-            Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
-          </p>
-        </div>
-
-        <div class="states" id="states">
-          <h2 class="content-title">States</h2>
-          <table class="states-table">
-            <thead>
-              <tr>
-                <th class="states-header-state">State</th>
-                <th class="states-header-infection-rate">Infection Rate</th>
-              </tr>
-            </thead>
-            <tbody id="states-body">
-            </tbody>
-          </table>
-        </div>
+        <h2 class="content-title">States</h2>
+        <table class="states-table">
+          <thead>
+            <tr>
+              <th class="states-header-state">State</th>
+              <th class="states-header-infection-rate">Infection Rate</th>
+            </tr>
+          </thead>
+          <tbody id="states-body">
+          </tbody>
+        </table>
       </div>
-    </aside>
+    </div>
+
+    <div class="faq content" id="faq">
+      <div class="content-inner">
+        <h2 class="content-title">FAQ</h2>
+        <p class="faq-question">What are we bringing down?</p>
+        <p class="faq-answer">
+          The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.000.  The faster we get to 1.000, the faster we can get back to normal.  
+        </p>
+        <p class="faq-answer">
+          This dashboard is to encourage, inspire, and motivate everyone to do their part -- because it matters!
+        </p>
+        <p class="faq-answer">
+          Let's do this!
+        </p>
+
+        <p class="faq-question">Why the number 1.000?</p>
+        <p class="faq-answer">
+          The number you are seeing is the infection rate of your state.  The goal is to decrease your number to 1.000.
+        </p>
+        <p class="faq-answer">
+          The number 1.000 reflects the moment where cases have stopped growing.  
+        </p>
+        <p class="faq-answer">
+          From that moment, we will treat those who have it, hospitals can begin to breathe and businesses can begin to plan again. 
+        </p>
+
+        <p class="faq-question">How can I help?</p>
+        <p class="faq-answer">
+          Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
+        </p>
+        
+        <p class="faq-question">How does this get calculated?</p>
+        <p class="faq-answer">
+          The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:letsbringitdowntoday@gmail.com">letsbringitdowntoday@gmail.com</a>
+        </p>
+        
+        <p class="faq-question">What is the geographic focus?</p>
+        <p class="faq-answer">
+          At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
+        </p>
+        
+        <p class="faq-question">When are the numbers updated?</p>
+        <p class="faq-answer">
+          Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
+        </p>
+      </div>
+    </div>
 
     <script src="smooth-scroll.min.js"></script>
     <script src="moment.min.js"></script>
@@ -240,7 +246,10 @@
     <script>
       const rawData = JSON.parse(RAW_DATA_FROM_SERVER)
 
-      document.querySelector('#united-states-infection-rate').textContent = rawData.total.infectionRate
+      const slug = window.location.pathname.slice(1)
+      const regionData = rawData.regions.find(data => data.slug === slug) || rawData.total
+      document.querySelector('#primary-region').textContent = regionData.name
+      document.querySelector('#primary-infection-rate').textContent = regionData.infectionRate
 
       rawData.regions.forEach(region => {
         const row = document.createElement('tr')
