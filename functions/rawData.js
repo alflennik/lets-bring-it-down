@@ -1,6 +1,6 @@
 module.exports = {
   lastUpdate: '2020-03-28T10:31:00-04:00',
-  total: { name: 'United States', infectionRate: '1.218' },
+  total: { slug: 'united-states', name: 'United States', infectionRate: '1.218', image: 'united-states.svg' },
   regions: [
     { slug: 'alabama', name: 'Alabama', infectionRate: '1.119' },
     { slug: 'alaska', name: 'Alaska', infectionRate: '1.034' },

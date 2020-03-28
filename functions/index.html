@@ -161,12 +161,11 @@
       </header>
 
       <div class="center">
-        <img class="center-usa-image" alt="usa" src="usa.svg" />
-
+        <img id="primary-region-outline" class="center-usa-image" alt="Picture of region" />
         <div class="center-infection-rate">Today's Infection Rate</div>
-        <div class="center-number" id="primary-infection-rate"></div>
-        <div class="center-region-name" id="primary-region"></div>
-        <div class="center-last-update" id="last-update"></div>
+        <div id="primary-infection-rate" class="center-number"></div>
+        <div id="primary-region" class="center-region-name"></div>
+        <div id="last-update" class="center-last-update"></div>
       </div>
 
       <a class="go-down" href="#states">
@@ -241,15 +240,18 @@
     <script src="moment.min.js"></script>
 
     <script>
-    </script>
-
-    <script>
       const rawData = JSON.parse(RAW_DATA_FROM_SERVER)
 
       const slug = window.location.pathname.slice(1)
       const regionData = rawData.regions.find(data => data.slug === slug) || rawData.total
       document.querySelector('#primary-region').textContent = regionData.name
       document.querySelector('#primary-infection-rate').textContent = regionData.infectionRate
+
+      if (regionData.image) {
+        document.querySelector('#primary-region-outline').setAttribute('src', regionData.image) 
+      } else {
+        document.querySelector('#primary-region-outline').style.display = 'none'
+      }
 
       rawData.regions.forEach(region => {
         const row = document.createElement('tr')
