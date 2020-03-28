@@ -235,64 +235,10 @@
     <script src="moment.min.js"></script>
 
     <script>
-      const rawData = {
-        lastUpdate: '2020-03-28T10:31:00-04:00',
-        total: { name: 'United States', infectionRate: '1.218' },
-        regions: [
-          { name: 'Alabama', infectionRate: '1.119' },
-          { name: 'Alaska', infectionRate: '1.034' },
-          { name: 'Arizona', infectionRate: '1.236' },
-          { name: 'Arkansas', infectionRate: '1.121' },
-          { name: 'California', infectionRate: '1.163' },
-          { name: 'Colorado', infectionRate: '1.002' },
-          { name: 'Connecticut', infectionRate: '1.216' },
-          { name: 'Delaware', infectionRate: '1.202' },
-          { name: 'District of Columbia', infectionRate: '1.148' },
-          { name: 'Florida', infectionRate: '1.187' },
-          { name: 'Georgia', infectionRate: '1.238' },
-          { name: 'Hawaii', infectionRate: '1.104' },
-          { name: 'Idaho', infectionRate: '1.288' },
-          { name: 'Illinois', infectionRate: '1.161' },
-          { name: 'Indiana', infectionRate: '1.341' },
-          { name: 'Iowa', infectionRate: '1.238' },
-          { name: 'Kansas', infectionRate: '1.165' },
-          { name: 'Kentucky', infectionRate: '1.179' },
-          { name: 'Louisiana', infectionRate: '1.160' },
-          { name: 'Maine', infectionRate: '1.077' },
-          { name: 'Maryland', infectionRate: '1.248' },
-          { name: 'Massachusetts', infectionRate: '1.254' },
-          { name: 'Michigan', infectionRate: '1.217' },
-          { name: 'Minnesota', infectionRate: '1.131' },
-          { name: 'Mississippi', infectionRate: '1.162' },
-          { name: 'Missouri', infectionRate: '1.219' },
-          { name: 'Montana', infectionRate: '1.174' },
-          { name: 'Nebraska', infectionRate: '1.098' },
-          { name: 'Nevada', infectionRate: '1.216' },
-          { name: 'New Hampshire', infectionRate: '1.133' },
-          { name: 'New Jersey', infectionRate: '1.221' },
-          { name: 'New Mexico', infectionRate: '1.169' },
-          { name: 'New York', infectionRate: '1.156' },
-          { name: 'North Carolina', infectionRate: '1.168' },
-          { name: 'North Dakota', infectionRate: '1.250' },
-          { name: 'Ohio', infectionRate: '1.237' },
-          { name: 'Oklahoma', infectionRate: '1.230' },
-          { name: 'Oregon', infectionRate: '1.240' },
-          { name: 'Pennsylvania', infectionRate: '1.235' },
-          { name: 'Rhode Island', infectionRate: '1.187' },
-          { name: 'South Carolina', infectionRate: '1.218' },
-          { name: 'South Dakota', infectionRate: '1.207' },
-          { name: 'Tennessee', infectionRate: '1.168' },
-          { name: 'Texas', infectionRate: '1.193' },
-          { name: 'Utah', infectionRate: '1.161' },
-          { name: 'Vermont', infectionRate: '1.141' },
-          { name: 'Virginia', infectionRate: '1.232' },
-          { name: 'Washington', infectionRate: '1.078' },
-          { name: 'West Virginia', infectionRate: '1.316' },
-          { name: 'Wisconsin', infectionRate: '1.214' },
-          { name: 'Wyoming', infectionRate: '1.243' },
-          { name: 'Puerto Rico', infectionRate: '1.190' },
-        ]
-      }
+    </script>
+
+    <script>
+      const rawData = JSON.parse(RAW_DATA_FROM_SERVER)
 
       document.querySelector('#united-states-infection-rate').textContent = rawData.total.infectionRate
 
