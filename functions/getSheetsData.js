@@ -1,7 +1,10 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const slugify = require('slugify')
 const moment = require('moment')
+const Markdown = require('markdown-it');
 const functions = require('firebase-functions');
+
+const markdown = new Markdown()
 
 const getSheetsData = async () => {
   const { sheets } = functions.config()
@@ -12,7 +15,8 @@ const getSheetsData = async () => {
   });
   await doc.loadInfo();
   const sheet = doc.sheetsById['97441358'];
-  await sheet.loadCells('A1:C54');
+  await Promise.all([sheet.loadCells('A1:B54'), sheet.loadCells('C1:D2')])
+
   const regions = []
   for (let y = 1; y < 54; y++) {
     let region = {}
@@ -26,8 +30,11 @@ const getSheetsData = async () => {
   regions[0].image = 'united-states.svg'
 
   const lastUpdateUnix = sheet.getCellByA1('C2').value
-  const lastUpdate = moment.unix(lastUpdateUnix).format()
-  return { lastUpdate, regions }
+  const lastUpdateTimestamp = moment.unix(lastUpdateUnix).format()
+  
+  const faqMarkdown = sheet.getCellByA1('D2').value
+  const faqHtml = markdown.render(faqMarkdown)
+  return { lastUpdateTimestamp, regions, faqHtml }
 }
 
 module.exports = getSheetsData

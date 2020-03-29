@@ -26,7 +26,10 @@ exports.app = functions.https.onRequest(async (req, res) => {
     })
   }
 
+  rawData.lastUpdateFormatted = moment(rawData.lastUpdateTimestamp).fromNow()
+
   const indexHtml = await fs.readFile('./index.html', 'utf-8')
   const indexHtmlWithData = indexHtml.replace('RAW_DATA_FROM_SERVER', '`' + JSON.stringify(rawData) + '`')
-  res.send(indexHtmlWithData);
+  const indexHtmlEscapedForJs = indexHtmlWithData.replace(/\\/g, "\\\\")
+  res.send(indexHtmlEscapedForJs);
 });

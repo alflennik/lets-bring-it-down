@@ -143,15 +143,15 @@
         background-color: #1c2458;
         color: white;
       }
-      .faq-question, .faq-answer {
+      .faq-content h3, .faq-content p {
         line-height: 1.5;
       }
-      .faq-question {
+      .faq-content h3 {
         font-size: 16px;
         font-weight: bold;
         margin: 0;
       }
-      .faq-answer {
+      .faq-content p {
         margin: 0 0 1.5em 0;
       }
       .faq a {
@@ -206,7 +206,8 @@
     <div class="faq content" id="faq">
       <div class="content-inner">
         <h2 class="content-title">FAQ</h2>
-        <p class="faq-question">What are we bringing down?</p>
+        <div class="faq-content" id="faq-content"></div>
+        <!-- <p class="faq-question">What are we bringing down?</p>
         <p class="faq-answer">
           The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.000.  The faster we get to 1.000, the faster we can get back to normal.  
         </p>
@@ -246,7 +247,7 @@
         <p class="faq-question">When are the numbers updated?</p>
         <p class="faq-answer">
           Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
-        </p>
+        </p> -->
 
         <div class="icons">
           <a class="icons-twitter" target="_blank" href="https://twitter.com/letsbringitdown">
@@ -260,7 +261,6 @@
     </div>
 
     <script src="smooth-scroll.min.js"></script>
-    <script src="moment.min.js"></script>
 
     <script>
       // Will be replaced with a json string by the cloud function
@@ -276,8 +276,8 @@
       } else {
         document.querySelector('#primary-region-outline').style.display = 'none'
       }
-      const lastUpdateFormatted = moment(rawData.lastUpdate).fromNow()
-      document.querySelector('#last-update').textContent = `Last updated ${lastUpdateFormatted}`
+      document.querySelector('#last-update').textContent = rawData.lastUpdateFormatted
+      document.querySelector('#faq-content').innerHTML = rawData.faqHtml
 
       // Populate states table
       rawData.regions.forEach(region => {
@@ -304,6 +304,12 @@
           event.preventDefault()
           document.querySelector(currentUrl).scrollIntoView({ behavior: 'smooth' })
         })
+
+        // Make external links open in a new tab
+        const firstCharacterOfLink = element.getAttribute('href').slice(0, 1)
+        if (firstCharacterOfLink !== '/' && firstCharacterOfLink !== '#') {
+          element.setAttribute('target', '_blank')
+        }
       })
     </script>
 
