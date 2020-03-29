@@ -268,7 +268,7 @@
 
       // Populate primary region data with the United States as a fallback
       const slug = window.location.pathname.slice(1)
-      const region = rawData.regions.find(data => data.slug === slug) || rawData.total
+      const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
       document.querySelector('#primary-region').textContent = region.name
       document.querySelector('#primary-infection-rate').textContent = region.infectionRate
       if (region.image) {
