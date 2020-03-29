@@ -1,13 +1,14 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 const slugify = require('slugify')
 const moment = require('moment')
-const secrets = require('../secrets')
+const functions = require('firebase-functions');
 
 const getSheetsData = async () => {
+  const { sheets } = functions.config()
   const doc = new GoogleSpreadsheet('1D7XaT8E9rsarTX00Co_ksHlWIt-IeEsFOnr5KvjbiuI');
   await doc.useServiceAccountAuth({
-    client_email: secrets.client_email, // process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: secrets.private_key // process.env.GOOGLE_PRIVATE_KEY,
+    client_email: sheets.client_email,
+    private_key: sheets.private_key
   });
   await doc.loadInfo();
   const sheet = doc.sheetsById['97441358'];
