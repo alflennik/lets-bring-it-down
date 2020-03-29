@@ -8,7 +8,7 @@ const getSheetsData = async () => {
   const doc = new GoogleSpreadsheet('1D7XaT8E9rsarTX00Co_ksHlWIt-IeEsFOnr5KvjbiuI');
   await doc.useServiceAccountAuth({
     client_email: sheets.client_email,
-    private_key: sheets.private_key
+    private_key: sheets.private_key.replace(/\\n/g, '\n')
   });
   await doc.loadInfo();
   const sheet = doc.sheetsById['97441358'];

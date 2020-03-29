@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "power-of-one-91385"
+    "default": "power-of-one-91385",
+    "staging": "let-s-bring-it-down-staging"
   }
 }
