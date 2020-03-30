@@ -46,6 +46,34 @@
       .header-menu > :first-child {
         margin: 0 0.75rem 0 1.5rem;
       }
+
+      .flip-card {
+        width: 100%;
+        height: 140px;
+        perspective: 1500px;
+      }
+       .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        -moz-backface-visibility: hidden;
+      }
+      .flip-card-flipped .flip-card-inner {
+        transform: rotateY(-180deg);
+      }
+      .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+      }
+      .flip-card-back {
+        transform: rotateY(180deg);
+      }
   
       .center {
         text-align: center;
@@ -56,13 +84,13 @@
         transform: translateY(-50%);
       }
       .center-number {
-        font-size: 120px;
+        font-size: 100px;
         font-weight: bold;
         line-height: 1;
       }
       .center-infection-rate,
       .center-region-name {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         text-transform: uppercase;
         white-space: nowrap;
@@ -70,6 +98,24 @@
       }
       .center-infection-rate {
         line-height: 1;
+      }
+      .center-arrow-wrapper {
+        position: absolute;
+        top: -7px;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 97vw;
+        max-width: 340px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .center-yesterday-arrow, 
+      .center-tomorrow-arrow {
+        width: 15px;
+        cursor: pointer;
+        transition: opacity 0.3s linear;
       }
       .center-last-update {
         font-size: 17px;
@@ -184,9 +230,39 @@
 
       <div class="center">
         <img id="primary-region-outline" class="center-usa-image" alt="Picture of region" />
-        <div class="center-infection-rate">Today's Infection Rate</div>
-        <div id="primary-infection-rate" class="center-number"></div>
-        <div id="primary-region" class="center-region-name"></div>
+        <div id="center-card" class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <div class="center-infection-rate">
+                Today's Infection Rate
+              </div>
+              <div id="primary-infection-rate" class="center-number"></div>
+              <div primary-region class="center-region-name"></div>
+            </div>
+            <div class="flip-card-back">
+              <div class="center-infection-rate">
+                Yesterday's Rate
+              </div>
+              <div id="yesterday-infection-rate" class="center-number"></div>
+              <div primary-region class="center-region-name"></div>
+            </div>
+          </div>
+        </div>
+        <div class="center-arrow-wrapper">
+          <img 
+            id="yesterday-arrow"
+            class="center-yesterday-arrow"
+            src="angle-left-solid.svg"
+            alt="View yesterday"
+          />
+          <img 
+            id="tomorrow-arrow"
+            class="center-tomorrow-arrow"
+            src="angle-right-white.svg"
+            alt="View tomorrow"
+            style="opacity: 0;"
+          />
+        </div>
         <div id="last-update" class="center-last-update"></div>
       </div>
 
@@ -228,8 +304,11 @@
       // Populate primary region data with the United States as a fallback
       const slug = window.location.pathname.slice(1)
       const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
-      document.querySelector('#primary-region').textContent = region.name
+      document.querySelectorAll('[primary-region]').forEach(element => {
+        element.textContent = region.name
+      })
       document.querySelector('#primary-infection-rate').textContent = region.dailyInfectionRates[0]
+      document.querySelector('#yesterday-infection-rate').textContent = region.dailyInfectionRates[1]
       if (region.image) {
         document.querySelector('#primary-region-outline').setAttribute('src', region.image) 
       } else {
@@ -238,8 +317,22 @@
       document.querySelector('#last-update').textContent = rawData.lastUpdateFormatted
       document.querySelector('#faq-content').innerHTML = rawData.faqHtml
 
+      document.querySelector('#yesterday-arrow').addEventListener('click', () => {
+        document.querySelector('#center-card').classList.add('flip-card-flipped')
+        document.querySelector('#yesterday-arrow').style.opacity = 0
+        document.querySelector('#tomorrow-arrow').style.opacity = 1
+      })
+      document.querySelector('#tomorrow-arrow').addEventListener('click', () => {
+        document.querySelector('#center-card').classList.remove('flip-card-flipped')
+        document.querySelector('#tomorrow-arrow').style.opacity = 0
+        document.querySelector('#yesterday-arrow').style.opacity = 1
+      })
+
       // Populate states table
       rawData.regions.forEach(region => {
+        if (region.name === 'United States') {
+          return
+        }
         const row = document.createElement('div')
         row.classList.add('states-row')
         row.innerHTML = `

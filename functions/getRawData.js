@@ -3,17 +3,13 @@ const fs = require('fs').promises;
 const getSheetsData = require('./getSheetsData')
 const slugify = require('slugify')
 
+const slugsWithImages = ['united-states']
+
 const getRegion = async ({ name, dailyInfectionRates }) => {
   const slug = slugify(name, { lower: true })
 
-  let imageExists = true
-  try {
-    await fs.access(path.resolve(__dirname, `../public/regions/${slug}.svg`))
-  } catch (error) {
-    imageExists = false
-  }
   let image = null
-  if (imageExists) {
+  if (slugsWithImages.includes(slug)) {
     image = `/regions/${slug}.svg`
   }
 
