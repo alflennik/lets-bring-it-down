@@ -307,8 +307,8 @@
       document.querySelectorAll('[primary-region]').forEach(element => {
         element.textContent = region.name
       })
-      document.querySelector('#primary-infection-rate').textContent = region.dailyInfectionRates[0]
-      document.querySelector('#yesterday-infection-rate').textContent = region.dailyInfectionRates[1]
+      document.querySelector('#primary-infection-rate').textContent = region.dailyInfectionRates[0].formattedValue
+      document.querySelector('#yesterday-infection-rate').textContent = region.dailyInfectionRates[1].formattedValue
       if (region.image) {
         document.querySelector('#primary-region-outline').setAttribute('src', region.image) 
       } else {
@@ -339,7 +339,7 @@
           <a class="states-link" href="/${region.slug}">
             <div class="content-inner states-inner-row">
               <div class="states-name">${region.name}</div>
-              <div class="states-infection-rate">${region.dailyInfectionRates[0]}</div>
+              <div class="states-infection-rate">${region.dailyInfectionRates[0].formattedValue}</div>
               <img class="states-caret" src="angle-right-solid.svg" alt="View region" />
             </div>
           </a>

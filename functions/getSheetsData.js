@@ -28,9 +28,12 @@ const getSheetsData = async () => {
     region.name = sheet.getCell(row, regionNameColumn).formattedValue
     region.dailyInfectionRates = []
     for (let column = 4; column < 34; column++) {
-      const infectionRate = sheet.getCell(row, column).formattedValue
-      if (infectionRate) {
-        region.dailyInfectionRates.push(Number(infectionRate))
+      const cell = sheet.getCell(row, column)
+      if (cell.value) {
+        region.dailyInfectionRates.push({ 
+          value: cell.value,
+          formattedValue: cell.formattedValue
+        })
       } else {
         region.dailyInfectionRates.push(null)
       }
