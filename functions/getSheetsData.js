@@ -1,12 +1,11 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet');
-const slugify = require('slugify')
 const moment = require('moment')
 const Markdown = require('markdown-it');
 const functions = require('firebase-functions');
 
 const markdown = new Markdown()
 
-const getSheetsData = async () => {
+const loadSheet = async () => {
   const { sheets } = functions.config()
   const doc = new GoogleSpreadsheet('1D7XaT8E9rsarTX00Co_ksHlWIt-IeEsFOnr5KvjbiuI');
   await doc.useServiceAccountAuth({
@@ -14,27 +13,37 @@ const getSheetsData = async () => {
     private_key: sheets.private_key.replace(/\\n/g, '\n')
   });
   await doc.loadInfo();
-  const sheet = doc.sheetsById['97441358'];
-  await Promise.all([sheet.loadCells('A1:B54'), sheet.loadCells('C1:D2')])
+  const sheet = doc.sheetsById['218962479'];
+  await sheet.loadCells('A1:AI54')
+  return sheet
+}
 
-  const regions = []
-  for (let y = 1; y < 54; y++) {
+const getSheetsData = async () => {
+  const sheet = await loadSheet()
+  
+  const dailyInfectionRatesByRegion = []
+  for (let row = 1; row < 54; row++) {
     let region = {}
-    for (let x = 0; x < 2; x++) {
-      let column = sheet.getCell(0, x).formattedValue
-      region[column] = sheet.getCell(y, x).formattedValue
+    const regionNameColumn = 2
+    region.name = sheet.getCell(row, regionNameColumn).formattedValue
+    region.dailyInfectionRates = []
+    for (let column = 4; column < 34; column++) {
+      const infectionRate = sheet.getCell(row, column).formattedValue
+      if (infectionRate) {
+        region.dailyInfectionRates.push(Number(infectionRate))
+      } else {
+        region.dailyInfectionRates.push(null)
+      }
     }
-    region.slug = slugify(region.name, { lower: true })
-    regions.push(region)
+    dailyInfectionRatesByRegion.push(region)
   }
-  regions[0].image = 'united-states.svg'
 
-  const lastUpdateUnix = sheet.getCellByA1('C2').value
+  const lastUpdateUnix = sheet.getCellByA1('B2').value
   const lastUpdateTimestamp = moment.unix(lastUpdateUnix).format()
   
-  const faqMarkdown = sheet.getCellByA1('D2').value
+  const faqMarkdown = sheet.getCellByA1('B6').value
   const faqHtml = markdown.render(faqMarkdown)
-  return { lastUpdateTimestamp, regions, faqHtml }
+  return { dailyInfectionRatesByRegion, lastUpdateTimestamp, faqHtml }
 }
 
 module.exports = getSheetsData

@@ -207,47 +207,6 @@
       <div class="content-inner">
         <h2 class="content-title">FAQ</h2>
         <div class="faq-content" id="faq-content"></div>
-        <!-- <p class="faq-question">What are we bringing down?</p>
-        <p class="faq-answer">
-          The purpose of this website is to show you how effective your <em>daily</em> actions are in the fight against coronavirus.  The more you stay inside, wash your hands, and follow the <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prepare/prevention.html">guidelines by the CDC</a>, the faster we all get to the number 1.000.  The faster we get to 1.000, the faster we can get back to normal.  
-        </p>
-        <p class="faq-answer">
-          This dashboard is to encourage, inspire, and motivate everyone to do their part -- because it matters!
-        </p>
-        <p class="faq-answer">
-          Let's do this!
-        </p>
-
-        <p class="faq-question">Why the number 1.000?</p>
-        <p class="faq-answer">
-          The number you are seeing is the infection rate of your state.  The goal is to decrease your number to 1.000.
-        </p>
-        <p class="faq-answer">
-          The number 1.000 reflects the moment where cases have stopped growing.  
-        </p>
-        <p class="faq-answer">
-          From that moment, we will treat those who have it, hospitals can begin to breathe and businesses can begin to plan again. 
-        </p>
-
-        <p class="faq-question">How can I help?</p>
-        <p class="faq-answer">
-          Stay inside, wash your hands, maintain distances if you must go outside, spread the word. There are many ways to bring this rate down and we defer <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/hcp/guidance-prevent-spread.html">to the CDC for the most up-to-date guidelines on how to do so</a>.
-        </p>
-        
-        <p class="faq-question">How does this get calculated?</p>
-        <p class="faq-answer">
-          The data we use is provided by <a target="_blank" href="https://coronavirus.jhu.edu/">Johns Hopkins University & Medicine's Coronavirus Resource Center</a>. Based on the numbers they report, we divide the absolute increase of confirmed cases between two consecutive days (day A and day B) by the number of confirmed cases reported for day B. For more information on our methodology, please email <a href="mailto:letsbringitdowntoday@gmail.com">letsbringitdowntoday@gmail.com</a>
-        </p>
-        
-        <p class="faq-question">What is the geographic focus?</p>
-        <p class="faq-answer">
-          At this stage, data and metrics are generated to take into account the USA's fifty states. We understand this is a global issue and are exploring various scenarios for our data to reflect more countries.
-        </p>
-        
-        <p class="faq-question">When are the numbers updated?</p>
-        <p class="faq-answer">
-          Our metrics are updated every day at 10PM EST. We highly recommend you check in after dinner, and why not crack a beer to celebrate the progress made today? 
-        </p> -->
 
         <div class="icons">
           <a class="icons-twitter" target="_blank" href="https://twitter.com/letsbringitdown">
@@ -270,7 +229,7 @@
       const slug = window.location.pathname.slice(1)
       const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
       document.querySelector('#primary-region').textContent = region.name
-      document.querySelector('#primary-infection-rate').textContent = region.infectionRate
+      document.querySelector('#primary-infection-rate').textContent = region.dailyInfectionRates[0]
       if (region.image) {
         document.querySelector('#primary-region-outline').setAttribute('src', region.image) 
       } else {
@@ -287,7 +246,7 @@
           <a class="states-link" href="/${region.slug}">
             <div class="content-inner states-inner-row">
               <div class="states-name">${region.name}</div>
-              <div class="states-infection-rate">${region.infectionRate}</div>
+              <div class="states-infection-rate">${region.dailyInfectionRates[0]}</div>
               <img class="states-caret" src="angle-right-solid.svg" alt="View region" />
             </div>
           </a>

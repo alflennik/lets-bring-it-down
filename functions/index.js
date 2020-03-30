@@ -1,32 +1,37 @@
 const fs = require('fs').promises;
 const moment = require('moment')
 const functions = require('firebase-functions');
-const getSheetsData = require('./getSheetsData')
+const getRawData = require('./getRawData')
 
 let rawData
 let lastFetchedAt
 
-const startupHasCompleted = getSheetsData().then(data => {
-  lastFetchedAt = moment()
+const startupHasCompleted = getRawData().then(data => {
   rawData = data
+  lastFetchedAt = moment()
 })
 
 
-exports.app = functions.https.onRequest(async (req, res) => {
+exports.app = functions.https.onRequest(async (req, res) => {  
   if (!rawData) {
     await startupHasCompleted
+  }
+
+  if (req.url.includes('?cache=false')) {
+    rawData = await getRawData()
+    lastFetchedAt = moment()
   }
 
   const isDataStale = moment().diff(lastFetchedAt, 'minutes') > 5
   if (isDataStale) {
     // Kick off an update but continue for now with stale data
-    getSheetsData().then(data => {
-      lastFetchedAt = moment()
+    getRawData().then(data => {
       rawData =  data
+      lastFetchedAt = moment()
     })
   }
 
-  rawData.lastUpdateFormatted = moment(rawData.lastUpdateTimestamp).fromNow()
+  rawData.lastUpdateFormatted = 'Last updated ' + moment(rawData.lastUpdateTimestamp).fromNow()
 
   const indexHtml = await fs.readFile('./index.html', 'utf-8')
   const indexHtmlWithData = indexHtml.replace('RAW_DATA_FROM_SERVER', '`' + JSON.stringify(rawData) + '`')
