@@ -3,13 +3,13 @@ const fs = require('fs').promises;
 const getSheetsData = require('./getSheetsData')
 const slugify = require('slugify')
 
-const slugsWithImages = ['united-states']
+const slugsWithoutImages = ['puerto-rico', 'rhode-island', 'michigan', 'hawaii']
 
 const getRegion = async ({ name, dailyInfectionRates }) => {
   const slug = slugify(name, { lower: true })
 
   let image = null
-  if (slugsWithImages.includes(slug)) {
+  if (!slugsWithoutImages.includes(slug)) {
     image = `/regions/${slug}.svg`
   }
 
