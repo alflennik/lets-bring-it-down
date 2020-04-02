@@ -14,7 +14,7 @@
       .above-fold {
         color: white;
         height: 100vh;
-        min-height: 375px;
+        min-height: 400px;
         position: relative;
       }
 
@@ -99,6 +99,12 @@
       .center-infection-rate {
         line-height: 1;
       }
+      .center-infection-rate span {
+        font-size: 34px;
+      }
+      .center-region-name {
+        margin-top: 5px;
+      }
       .center-arrow-wrapper {
         position: absolute;
         top: -7px;
@@ -120,7 +126,7 @@
       .center-last-update {
         font-size: 17px;
         font-weight: 500;
-        margin-top: 50px;
+        margin-top: 80px;
       }
       .center-region-image {
         position: absolute;
@@ -132,6 +138,7 @@
         transform: translate(-50%, -50%);
       }
 
+      /* TODO: hide on landscape */
       .go-down {
         position: absolute;
         width: 30px;
@@ -234,14 +241,14 @@
           <div class="flip-card-inner">
             <div class="flip-card-front">
               <div class="center-infection-rate">
-                Today's Infection Rate
+                Infection Spread Rate<br><span>Today</span>
               </div>
               <div id="primary-infection-rate" class="center-number"></div>
               <div primary-region class="center-region-name"></div>
             </div>
             <div class="flip-card-back">
               <div class="center-infection-rate">
-                Yesterday's Rate
+                Infection Spread Rate<br><span>Yesterday</span>
               </div>
               <div id="yesterday-infection-rate" class="center-number"></div>
               <div primary-region class="center-region-name"></div>
