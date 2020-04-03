@@ -14,22 +14,25 @@
       .above-fold {
         color: white;
         height: 100vh;
-        min-height: 400px;
+        min-height: 500px;
         position: relative;
       }
 
       .header {
         padding: 1.5rem;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: minmax(150px, 300px) auto;
+        grid-gap: 1.5rem;
         justify-content: space-between;
+        align-items: center;
       }
       .header-title, .header-faq, .header-states {
         color: white;
         text-decoration: none;
       }
-      .header-title {
-        font-weight: bold;
+      .header-title img {
+        display: block;
+        width: 100%;
       }
       .header-title span {
         display: inline-block;
@@ -39,12 +42,23 @@
         text-transform: uppercase;
       }
       .header-menu {
-        font-weight: bold;
         display: flex;
+        font-weight: bold;
         align-items: center;
       }
+      .header-faq, .header-states {
+        font-size: 20px;
+      }
       .header-menu > :first-child {
-        margin: 0 0.75rem 0 1.5rem;
+        margin-right: 1.5rem;
+      }
+      @media (max-width: 600px) {
+        .header-faq, .header-states {
+          font-size: 16px;
+        }
+        .header-menu > :first-child {
+          margin-right: 0.75rem;
+        }
       }
 
       .flip-card {
@@ -138,7 +152,6 @@
         transform: translate(-50%, -50%);
       }
 
-      /* TODO: hide on landscape */
       .go-down {
         position: absolute;
         width: 30px;
@@ -149,6 +162,11 @@
       }
       .go-down svg {
         fill: white;
+      }
+      @media (max-height: 500px) {
+        .go-down {
+          display: none;
+        }
       }
 
       .content {
@@ -228,7 +246,9 @@
   <body>
     <main class="above-fold">
       <header class="header">
-        <a class="header-title" href="/">Let's Bring It <span>Down</span></a>
+        <a class="header-title" href="/">
+          <img src="logo.svg" alt="Let's Bring It Down" />  
+        </a>
         <div class="header-menu">
           <a class="header-states" href="#states">States</a>
           <a class="header-faq" href="#faq">FAQ</a>
