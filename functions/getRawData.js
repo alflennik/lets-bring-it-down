@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const getSheetsData = require('./getSheetsData')
 const slugify = require('slugify')
 
-const slugsWithoutImages = ['puerto-rico', 'rhode-island', 'michigan', 'hawaii']
+const slugsWithoutImages = ['puerto-rico']
 
 const getRegion = async ({ name, dailyInfectionRates }) => {
   const slug = slugify(name, { lower: true })

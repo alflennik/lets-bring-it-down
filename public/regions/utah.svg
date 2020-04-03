@@ -1,3 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="201" height="265" viewBox="0 0 201 265">
-    <path opacity=".15" fill="#FFF" fill-rule="evenodd" d="M177.867 264.473l22.603-184.68-67.363-10.865c-2.314-.382-3.884-2.547-3.523-4.86l7.258-45.263-32.196-4.583L42.844.513.609 231.242l82.559 17.061 94.699 16.17z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 432 432" style="enable-background:new 0 0 432 432;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#050505;}
+	.st1{fill:none;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:#050505;stroke:#050505;stroke-width:8.239910e-03;}
+</style>
+<path opacity="0.15" fill="#FFFFFF" d="M360.9,115.1C360.9,114.6,360.4,114.6,360.9,115.1l-113.5,1.5l-0.5-76c0,0,0-0.5-0.5-0.5l-132.2-1l-35.5-1l0,0
+	c0,0-0.5,0-0.5,0.5L68,418.1c0,0,0,0,0,0.5c0,0,0,0,0.5,0H368c0,0,0,0,0.5,0c0,0,0,0,0-0.5L360.9,115.1z"/>
 </svg>

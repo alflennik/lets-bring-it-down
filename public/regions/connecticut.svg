@@ -1,3 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="58" height="61" viewBox="0 0 58 61">
-    <path opacity=".15" fill="#FFF" fill-rule="evenodd" d="M.92 16.708l-.17.042 9.19 34.632c.107.36.15.721.15 1.082v3.48c0 .892-.298 1.762-.829 2.504l-1.018 1.4.827.616 9.551-8.467 8.68-10.27c.573-.658 1.316-1.146 2.144-1.358L41.5 37.186 57.757 30.5v-7.979L52.26.687.92 16.708z"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 432 432" style="enable-background:new 0 0 432 432;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#050505;}
+	.st1{fill:none;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill:#050505;stroke:#050505;stroke-width:8.239910e-03;}
+</style>
+<polygon opacity="0.15" fill="#FFFFFF" points="410.6,271.5 402.2,274.6 406.4,293.8 399.1,297 381.2,297 368.9,303 353.3,297 350.3,303 333.3,297 
+	328,309.2 291.2,315 286,309.2 269,315 261.1,318.2 251.8,314 236.2,312.2 229.8,318.2 218.4,318.2 204.7,318.2 189.9,318.2 
+	185.4,309.2 164.9,329 147.1,334.9 135.5,348.3 114.1,348.3 87,366.7 65.9,374.1 37.7,385.2 21.4,357.9 71.1,328.4 57.1,303 
+	71.1,99.5 204.7,104.3 204.7,113.6 215,112.6 218.4,104.3 410.6,108.9 "/>
 </svg>
