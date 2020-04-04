@@ -1,4 +1,6 @@
 functions/.runtimeconfig.json
+.cache
+public/bundle
 
 # Logs
 logs
