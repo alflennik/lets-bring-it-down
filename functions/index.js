@@ -3,7 +3,9 @@ const moment = require('moment')
 const functions = require('firebase-functions');
 const getRawData = require('./getRawData')
 
-require('@babel/register') // Enables server-side React
+// Enable server-side React
+require('@babel/register') 
+require.extensions['.css'] = () => {};
 const render = require('./app/serverIndex.jsx')
 
 let rawData
