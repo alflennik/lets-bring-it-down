@@ -3,6 +3,9 @@ const moment = require('moment')
 const functions = require('firebase-functions');
 const getRawData = require('./getRawData')
 
+require('@babel/register') // Enables server-side React
+const render = require('./app/serverIndex.jsx')
+
 let rawData
 let lastFetchedAt
 
@@ -36,5 +39,9 @@ exports.app = functions.https.onRequest(async (req, res) => {
   const indexHtml = await fs.readFile('./index.html', 'utf-8')
   const indexHtmlWithData = indexHtml.replace('RAW_DATA_FROM_SERVER', '`' + JSON.stringify(rawData) + '`')
   const indexHtmlEscapedForJs = indexHtmlWithData.replace(/\\/g, "\\\\")
-  res.send(indexHtmlEscapedForJs);
+  const indexHtmlWithReact = indexHtmlEscapedForJs.replace(
+    '<div id="root"></div>',
+    `<div id="root">${render()}</div>`
+  )
+  res.send(indexHtmlWithReact);
 });

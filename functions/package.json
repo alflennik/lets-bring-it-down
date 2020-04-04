@@ -5,7 +5,6 @@
     "dev": "yarn serve & yarn parcelWatch",
     "serve": "firebase serve",
     "parcelWatch": "parcel watch app/clientIndex.jsx --out-dir ../public/bundle --public-url ./",
-
     "deploy": "yarn parcelBuild; firebase use staging; firebase deploy",
     "parcelBuild": "parcel build app/clientIndex.js --out-dir ../public/bundle --public-url ./"
   },
@@ -13,6 +12,9 @@
     "node": "10"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/register": "^7.9.0",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0",
     "google-spreadsheet": "^3.0.10",
@@ -24,6 +26,7 @@
     "slugify": "^1.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-tools": "^8.0.1"
