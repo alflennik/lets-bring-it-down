@@ -6,12 +6,13 @@
 }
 
 .header {
-  padding: 1.5rem;
   display: grid;
   grid-template-columns: minmax(150px, 300px) auto;
   grid-gap: 1.5rem;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  padding: 1.5rem;
 }
 .header-title, .header-faq, .header-states {
   color: white;

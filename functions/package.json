@@ -5,8 +5,9 @@
     "dev": "yarn serve & yarn parcelWatch",
     "serve": "firebase serve",
     "parcelWatch": "parcel watch app/clientIndex.jsx --out-dir ../public/bundle --public-url ./",
+    
     "deploy": "yarn parcelBuild; firebase use staging; firebase deploy",
-    "parcelBuild": "parcel build app/clientIndex.js --out-dir ../public/bundle --public-url ./"
+    "parcelBuild": "parcel build app/clientIndex.jsx --out-dir ../public/bundle --public-url ./"
   },
   "engines": {
     "node": "10"

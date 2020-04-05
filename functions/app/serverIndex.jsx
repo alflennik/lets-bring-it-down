@@ -3,11 +3,11 @@ import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom'
 import App from './components/App';
 
-const render = ({ rawData }) => {
+const render = ({ path, rawData }) => {
   const context = {}
 
   return ReactDOMServer.renderToString(
-    <StaticRouter location='/' context={context}>
+    <StaticRouter location={path} context={context}>
       <App isServerRendered rawData={rawData} />
     </StaticRouter>
   );

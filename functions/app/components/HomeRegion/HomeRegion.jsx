@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import SmoothScrollLink from '../SmoothScrollLink'
+import regionPropTypes from '../App/regionPropTypes'
 import './HomeRegion.css'
 
       // Populate primary region data with the United States as a fallback
@@ -76,6 +78,11 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
       </SmoothScrollLink>
     </main>
   )
+}
+
+HomeRegion.propTypes = {
+  region: regionPropTypes.isRequired,
+  lastUpdateFormatted: PropTypes.string.isRequired,
 }
 
 export default HomeRegion

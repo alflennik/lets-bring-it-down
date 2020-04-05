@@ -10,14 +10,6 @@
   <body>
     <div id="root"></div>
 
-    <div class="states" id="states">
-      <div class="content-inner">
-        <h2 class="content-title">States</h2>
-      </div>
-      <div class="states-table" id="states-body">
-      </div>
-    </div>
-
     <div class="faq content" id="faq">
       <div class="content-inner">
         <h2 class="content-title">FAQ</h2>
@@ -39,25 +31,6 @@
       window.rawData = JSON.parse(RAW_DATA_FROM_SERVER)
 
       document.querySelector('#faq-content').innerHTML = rawData.faqHtml
-
-      // Populate states table
-      rawData.regions.forEach(region => {
-        if (region.name === 'United States') {
-          return
-        }
-        const row = document.createElement('div')
-        row.classList.add('states-row')
-        row.innerHTML = `
-          <a class="states-link" href="/${region.slug}">
-            <div class="content-inner states-inner-row">
-              <div class="states-name">${region.name}</div>
-              <div class="states-infection-rate">${region.dailyInfectionRates[0].formattedValue}</div>
-              <img class="states-caret" src="angle-right-solid.svg" alt="View region" />
-            </div>
-          </a>
-        `
-        document.querySelector('#states-body').appendChild(row)
-      })
     </script>
 
     <script src="bundle/clientIndex.js"></script>
