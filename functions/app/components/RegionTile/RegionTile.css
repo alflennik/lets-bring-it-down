@@ -55,11 +55,20 @@
 }
 .region-tile-name, .region-tile-value {
   text-transform: uppercase;
-  font-weight: 700;
 }
 .region-tile-name {
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 700;
 }
 .region-tile-value {
-  font-size: 43px;
+  font-weight: 700;
+  font-size: 45px;
+}
+@media (max-width: 767px) {
+  .region-tile-name {
+    font-size: 16px;
+  }
+  .region-tile-value {
+    font-size: 40px;
+  }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import SmoothScrollLink from '../SmoothScrollLink'
@@ -21,6 +21,8 @@ import './HomeRegion.css'
       // })
 
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
+  const [isFlipped, setIsFlipped] = useState(false)
+  
   return (
     <main className="above-fold">
       <header className="header">
@@ -37,7 +39,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
         {region.image 
           ? <img className="center-region-image" alt="Picture of region" src={region.image} />
           : null}
-        <div id="center-card" className="flip-card">
+        <div id="center-card" className={`flip-card ${isFlipped ? 'flip-card-flipped' : ''}`}>
           <div className="flip-card-inner">
             <div className="flip-card-front">
               <div className="center-infection-rate">
@@ -57,17 +59,22 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
         </div>
         <div className="center-arrow-wrapper">
           <img 
-            id="yesterday-arrow"
+            style={{ opacity: isFlipped ? 0 : 1 }}
             className="center-yesterday-arrow"
             src="angle-left-solid.svg"
             alt="View yesterday"
+            onClick={() => {
+              setIsFlipped(true)
+            }}
           />
           <img 
-            id="tomorrow-arrow"
+            style={{ opacity: isFlipped ? 1 : 0 }}
             className="center-tomorrow-arrow"
             src="angle-right-white.svg"
             alt="View tomorrow"
-            style={{ opacity: '0'}}
+            onClick={() => {
+              setIsFlipped(false)
+            }}
           />
         </div>
         <div className="center-last-update">{lastUpdateFormatted}</div>
