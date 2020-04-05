@@ -43,7 +43,7 @@ exports.app = functions.https.onRequest(async (req, res) => {
   const indexHtmlEscapedForJs = indexHtmlWithData.replace(/\\/g, "\\\\")
   const indexHtmlWithReact = indexHtmlEscapedForJs.replace(
     '<div id="root"></div>',
-    `<div id="root">${render()}</div>`
+    `<div id="root">${render({ rawData })}</div>`
   )
   res.send(indexHtmlWithReact);
 });
