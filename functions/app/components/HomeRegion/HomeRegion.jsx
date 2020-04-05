@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import SmoothScrollLink from '../SmoothScrollLink'
 import regionPropTypes from '../App/regionPropTypes'
 import './HomeRegion.css'
@@ -21,7 +21,18 @@ import './HomeRegion.css'
       // })
 
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
+  const location = useLocation()
+  
   const [isFlipped, setIsFlipped] = useState(false)
+  useEffect(() => {
+    setIsFlipped(false)
+  }, [location])
+
+  useEffect(() => {
+    const value = region.dailyInfectionRates[isFlipped ? 1 : 0].value
+    debugger
+    document.body.style['background-color'] = value <= 0 ? '#20d1a9' : '#ff485e'
+  }, [region.slug, isFlipped])
   
   return (
     <main className="above-fold">

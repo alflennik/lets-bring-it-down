@@ -4,7 +4,7 @@ import regionPropTypes from '../App/regionPropTypes'
 import './RegionTile.css'
 
 const RegionTile = ({ region }) => {
-  const isReducing = region.dailyInfectionRates[0].value < 0
+  const isReducing = region.dailyInfectionRates[0].value <= 0
   return (
     <Link to={`/${region.slug}`} className={`region-tile ${isReducing ? 'region-tile-reducing' : 'region-tile-growing'}`}>
       {region.image ? <img alt={`Image of ${region.name}`} src={region.image} /> : null}
