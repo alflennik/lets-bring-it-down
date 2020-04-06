@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
+import Graph from '../Graph'
 import SmoothScrollLink from '../SmoothScrollLink'
 import regionPropTypes from '../App/regionPropTypes'
 import './HomeRegion.css'
@@ -30,7 +31,6 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
 
   useEffect(() => {
     const value = region.dailyInfectionRates[isFlipped ? 1 : 0].value
-    debugger
     document.body.style['background-color'] = value <= 0 ? '#20d1a9' : '#ff485e'
   }, [region.slug, isFlipped])
   
@@ -54,21 +54,20 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
           <div className="flip-card-inner">
             <div className="flip-card-front">
               <div className="center-infection-rate">
-                Infection Spread Rate<br /><span>Today</span>
+                New cases growth
               </div>
-              <div className="center-number">{region.dailyInfectionRates[0].formattedValue}</div>
               <div className="center-region-name">{region.name}</div>
+              <div className="center-number">{region.dailyInfectionRates[0].formattedValue}</div>
             </div>
-            <div className="flip-card-back">
+            {/* <div className="flip-card-back">
               <div className="center-infection-rate">
-                Infection Spread Rate<br /><span>Yesterday</span>
               </div>
               <div className="center-number">{region.dailyInfectionRates[1].formattedValue}</div>
               <div className="center-region-name">{region.name}</div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="center-arrow-wrapper">
+        {/* <div className="center-arrow-wrapper">
           <img 
             style={{ opacity: isFlipped ? 0 : 1 }}
             className="center-yesterday-arrow"
@@ -87,7 +86,8 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
               setIsFlipped(false)
             }}
           />
-        </div>
+        </div> */}
+        <Graph />
         <div className="center-last-update">{lastUpdateFormatted}</div>
       </div>
 
