@@ -1,16 +1,13 @@
 import React from "react";
 import moment from "moment";
+import withMobileVersion from "./withMobileVersion";
 
-const Graph = ({ dailyInfectionRates }) => {
-  // const paddingLeft = 40;
-  // const paddingRight = 10;
-  // const dataPointSpaceCount = 6;
-  // const maxDataPoints = 5
-  const paddingLeft = 60;
-  const paddingRight = 60;
-  const maxDataPoints = 13;
-  // const dataPointSpaceCount = (maxDataPoints - 1) * 2;
-  const dataPointSpaceCount = 13
+const Graph = ({ isMobile, dailyInfectionRates }) => {
+  const maxDataPoints = 7
+
+  const paddingLeft = isMobile ? 40 : 60;
+  const paddingRight = isMobile ? 10 : 60;
+  const dataPointSpaceCount = isMobile ? 7 : (maxDataPoints - 1) * 2;
 
   const coordinates = [];
   let highestY = -Infinity;
@@ -43,7 +40,7 @@ const Graph = ({ dailyInfectionRates }) => {
     if (date === today) {
       return "Today";
     }
-    if (isFirstCoordinate) {
+    if (isFirstCoordinate || isMobile) {
       return "";
     }
     return moment(date).format("MMM D");
@@ -56,7 +53,7 @@ const Graph = ({ dailyInfectionRates }) => {
   const formatY = (percentDecimal) => {
     const percent = percentDecimal * 100;
     const roundNumber = Math.round(percent);
-    const plus = roundNumber >= 0 ? "+" : "";
+    const plus = roundNumber > 0 ? "+" : "";
     return `${plus}${roundNumber}%`;
   };
   const getY = (value) => {
@@ -71,8 +68,8 @@ const Graph = ({ dailyInfectionRates }) => {
         width: "100%",
         maxWidth: "1300px",
         margin: "0 auto",
-        height: "15vh",
-        minHeight: "80px",
+        height: "20vh",
+        minHeight: "100px",
         display: "grid",
         gridTemplateColumns: `${paddingLeft}px calc(100% - ${
           paddingLeft + paddingRight
@@ -257,4 +254,4 @@ const Graph = ({ dailyInfectionRates }) => {
   );
 };
 
-export default Graph;
+export default withMobileVersion(Graph);
