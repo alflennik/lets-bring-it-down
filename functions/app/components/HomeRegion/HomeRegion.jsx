@@ -87,7 +87,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
             }}
           />
         </div> */}
-        <Graph />
+        <Graph dailyInfectionRates={region.dailyInfectionRates} />
         <div className="center-last-update">{lastUpdateFormatted}</div>
       </div>
 
