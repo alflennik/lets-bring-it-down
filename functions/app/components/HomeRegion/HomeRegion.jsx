@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
+import { Textfit as TextFit } from "react-textfit";
 import Graph from "../Graph";
 import SmoothScrollLink from "../SmoothScrollLink";
 import DownFromYesterday from "../DownFromYesterday";
@@ -29,6 +30,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   useEffect(() => {
     setIsFlipped(false);
+    setIndex(0)
   }, [location]);
 
   useEffect(() => {
@@ -67,15 +69,23 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
         >
           <div className="flip-card-inner">
             <div className="flip-card-front">
-              <div className="center-infection-rate">New cases growth</div>
-              <div className="center-region-name">{region.name}</div>
-              <div className="center-number">
-                {region.dailyInfectionRates[index].formattedValue}
+              <div className="center-wrap">
+                <div className="center-infection-rate">
+                  <TextFit mode="single">New cases growth</TextFit>
+                </div>
+                <div className="center-region-name">
+                  <TextFit mode="single" min={9} max={80}>
+                    {region.name}
+                  </TextFit>
+                </div>
+                <div className="center-number">
+                  {region.dailyInfectionRates[index].formattedValue}
+                </div>
+                <DownFromYesterday
+                  today={region.dailyInfectionRates[index]}
+                  yesterday={region.dailyInfectionRates[index + 1]}
+                />
               </div>
-              <DownFromYesterday
-                today={region.dailyInfectionRates[index]}
-                yesterday={region.dailyInfectionRates[index + 1]}
-              />
             </div>
             {/* <div className="flip-card-back">
               <div className="center-infection-rate">
@@ -106,8 +116,9 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
           />
         </div> */}
         <Graph
+          index={index}
           dailyInfectionRates={region.dailyInfectionRates}
-          onFocus={(index) => setIndex(index)}
+          onFocus={index => setIndex(index)}
         />
         <div className="center-last-update">{lastUpdateFormatted}</div>
       </div>

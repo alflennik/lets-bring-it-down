@@ -23,8 +23,8 @@ const OutlineCircle = styled.circle`
     `}
 `;
 
-const Graph = ({ isMobile, dailyInfectionRates, onFocus }) => {
-  const maxDataPoints = 14;
+const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
+  const maxDataPoints = 9;
 
   const paddingLeft = isMobile ? 40 : 60;
   const paddingRight = isMobile ? 10 : 60;
@@ -57,10 +57,10 @@ const Graph = ({ isMobile, dailyInfectionRates, onFocus }) => {
     }
   }
 
-  const [focusedIndex, setFocusedIndex] = useState(maxDataPoints - 1)
-  const focus = index => {
-    onFocus(maxDataPoints - 1 - index)
-    setFocusedIndex(index)
+  // Reversed way of doing indexes, need to wrap it better
+  const focusedIndex = maxDataPoints - 1 - index
+  const focus = newIndex => {
+    onFocus(maxDataPoints - 1 - newIndex)
   }
   coordinates[focusedIndex].focused = true;
 
