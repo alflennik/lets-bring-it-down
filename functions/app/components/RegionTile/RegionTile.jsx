@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import regionPropTypes from '../App/regionPropTypes'
+import DownFromYesterday from '../DownFromYesterday'
 import './RegionTile.css'
-import styled, { css } from 'styled-components'
 
 const RegionTile = ({ region }) => {
   const isReducing = region.dailyInfectionRates[0].value <= 0
@@ -11,6 +11,10 @@ const RegionTile = ({ region }) => {
       {region.image ? <img alt={`Image of ${region.name}`} src={region.image} /> : null}
       <div className="region-tile-name">{region.name}</div>
       <div className="region-tile-value">{region.dailyInfectionRates[0].formattedValue}</div>
+      <DownFromYesterday
+        today={region.dailyInfectionRates[0]}
+        yesterday={region.dailyInfectionRates[1]}
+      />
     </Link>
   )
 }
