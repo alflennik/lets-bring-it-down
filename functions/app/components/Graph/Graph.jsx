@@ -12,8 +12,10 @@ const OutlineCircle = styled.circle`
   stroke-width: 1;
   cursor: pointer;
 
-  &:hover {
-    opacity: 0.7;
+  @media (minwidth: 767px) {
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   ${(props) =>
@@ -28,7 +30,9 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
 
   const paddingLeft = isMobile ? 40 : 60;
   const paddingRight = isMobile ? 10 : 60;
-  const dataPointSpaceCount = isMobile ? maxDataPoints : (maxDataPoints - 1) * 2;
+  const dataPointSpaceCount = isMobile
+    ? maxDataPoints
+    : (maxDataPoints - 1) * 2;
 
   const coordinates = [];
   let highestY = -Infinity;
@@ -58,10 +62,10 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
   }
 
   // Reversed way of doing indexes, need to wrap it better
-  const focusedIndex = maxDataPoints - 1 - index
-  const focus = newIndex => {
-    onFocus(maxDataPoints - 1 - newIndex)
-  }
+  const focusedIndex = maxDataPoints - 1 - index;
+  const focus = (newIndex) => {
+    onFocus(maxDataPoints - 1 - newIndex);
+  };
   coordinates[focusedIndex].focused = true;
 
   const dataPointSpace = 100 / dataPointSpaceCount;
@@ -139,7 +143,13 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
         </text>
       </svg>
       <svg style={{ width: "100%", height: "100%" }}>
-        <filter id={`blur${isMobile ? 'mobile' : ''}`} x="-50%" y="-50%" width="200%" height="200%">
+        <filter
+          id={`blur${isMobile ? "mobile" : ""}`}
+          x="-50%"
+          y="-50%"
+          width="200%"
+          height="200%"
+        >
           <feGaussianBlur in="Source Graphic" stdDeviation="5" />
         </filter>
 
@@ -194,7 +204,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
         {/* Circles */}
         {coordinates.map((coordinate, index) => {
           if (coordinate.isFirstCoordinate) {
-            return null
+            return null;
           }
           return (
             <React.Fragment key={coordinate.date}>
@@ -226,7 +236,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
                   cy={getY(coordinate.y)}
                   r="10"
                   fill="white"
-                  filter={`url(#${`blur${isMobile ? 'mobile' : ''}`})`}
+                  filter={`url(#${`blur${isMobile ? "mobile" : ""}`})`}
                 />
               </g>
               {/* Hover outline */}
