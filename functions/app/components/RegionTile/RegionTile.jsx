@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import regionPropTypes from '../App/regionPropTypes'
 import './RegionTile.css'
+import styled, { css } from 'styled-components'
 
 const RegionTile = ({ region }) => {
   const isReducing = region.dailyInfectionRates[0].value <= 0

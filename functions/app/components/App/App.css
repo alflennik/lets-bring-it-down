@@ -1,7 +1,8 @@
 body {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background: #ff485e;
+  background-color: #ff485e;
+  transition: background-color linear 100ms;
 }
 
 .content {

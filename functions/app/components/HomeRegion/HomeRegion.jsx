@@ -23,6 +23,7 @@ import './HomeRegion.css'
 
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
   const location = useLocation()
+  const [index, setIndex] = useState(0)
   
   const [isFlipped, setIsFlipped] = useState(false)
   useEffect(() => {
@@ -30,9 +31,9 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
   }, [location])
 
   useEffect(() => {
-    const value = region.dailyInfectionRates[isFlipped ? 1 : 0].value
-    document.body.style['background-color'] = value <= 0 ? '#20d1a9' : '#ff485e'
-  }, [region.slug, isFlipped])
+    const value = region.dailyInfectionRates[index].value
+    document.body.style['background-color'] = value <= 0 ? '#2ac29f' : '#ff485e'
+  }, [region.slug, index])
   
   return (
     <main className="above-fold">
@@ -57,7 +58,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
                 New cases growth
               </div>
               <div className="center-region-name">{region.name}</div>
-              <div className="center-number">{region.dailyInfectionRates[0].formattedValue}</div>
+              <div className="center-number">{region.dailyInfectionRates[index].formattedValue}</div>
             </div>
             {/* <div className="flip-card-back">
               <div className="center-infection-rate">
@@ -87,7 +88,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
             }}
           />
         </div> */}
-        <Graph dailyInfectionRates={region.dailyInfectionRates} />
+        <Graph dailyInfectionRates={region.dailyInfectionRates} onFocus={index => setIndex(index)} />
         <div className="center-last-update">{lastUpdateFormatted}</div>
       </div>
 

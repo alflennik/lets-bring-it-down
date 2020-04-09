@@ -1,13 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
+import styled, { css } from "styled-components";
 import withMobileVersion from "./withMobileVersion";
 
-const Graph = ({ isMobile, dailyInfectionRates }) => {
-  const maxDataPoints = 7
+const OutlineCircle = styled.circle`
+  transition: opacity 100ms linear;
+  opacity: 0;
+  pointer-events: all;
+  fill: none;
+  stroke: white;
+  stroke-width: 1;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  ${(props) =>
+    props.focused &&
+    css`
+      opacity: 1;
+    `}
+`;
+
+const Graph = ({ isMobile, dailyInfectionRates, onFocus }) => {
+  const maxDataPoints = 14;
 
   const paddingLeft = isMobile ? 40 : 60;
   const paddingRight = isMobile ? 10 : 60;
-  const dataPointSpaceCount = isMobile ? 7 : (maxDataPoints - 1) * 2;
+  const dataPointSpaceCount = isMobile ? maxDataPoints : (maxDataPoints - 1) * 2;
 
   const coordinates = [];
   let highestY = -Infinity;
@@ -19,7 +40,12 @@ const Graph = ({ isMobile, dailyInfectionRates }) => {
 
     const y = dailyInfectionRates[i].value;
 
-    coordinates.push({ x, y: dailyInfectionRates[i].value, date, isFirstCoordinate });
+    coordinates.push({
+      x,
+      y: dailyInfectionRates[i].value,
+      date,
+      isFirstCoordinate,
+    });
 
     x += 1;
 
@@ -31,7 +57,12 @@ const Graph = ({ isMobile, dailyInfectionRates }) => {
     }
   }
 
-  coordinates[coordinates.length - 1].focused = true;
+  const [focusedIndex, setFocusedIndex] = useState(maxDataPoints - 1)
+  const focus = index => {
+    onFocus(maxDataPoints - 1 - index)
+    setFocusedIndex(index)
+  }
+  coordinates[focusedIndex].focused = true;
 
   const dataPointSpace = 100 / dataPointSpaceCount;
   const getX = (offset) => `${offset * dataPointSpace}%`;
@@ -108,6 +139,10 @@ const Graph = ({ isMobile, dailyInfectionRates }) => {
         </text>
       </svg>
       <svg style={{ width: "100%", height: "100%" }}>
+        <filter id={`blur${isMobile ? 'mobile' : ''}`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="Source Graphic" stdDeviation="5" />
+        </filter>
+
         {/* Graph Top Indicator */}
         <line x1="0px" x2="10px" y1="0" y2="0" stroke="white" strokeWidth="1" />
         <line
@@ -144,57 +179,64 @@ const Graph = ({ isMobile, dailyInfectionRates }) => {
             return null;
           }
           return (
-            <React.Fragment key={previous.date}>
-              <line
-                x1={getX(previous.x)}
-                x2={getX(next.x)}
-                y1={getY(previous.y)}
-                y2={getY(next.y)}
-                stroke="white"
-                strokeWidth="1"
+            <line
+              key={previous.date}
+              x1={getX(previous.x)}
+              x2={getX(next.x)}
+              y1={getY(previous.y)}
+              y2={getY(next.y)}
+              stroke="white"
+              strokeWidth="1"
+            />
+          );
+        })}
+
+        {/* Circles */}
+        {coordinates.map((coordinate, index) => {
+          if (coordinate.isFirstCoordinate) {
+            return null
+          }
+          return (
+            <React.Fragment key={coordinate.date}>
+              {/* next.focused ? */}
+              {/* Normal circle */}
+              <circle
+                style={{ display: coordinate.focused ? "none" : "inherit" }}
+                cx={getX(coordinate.x)}
+                cy={getY(coordinate.y)}
+                r="2"
+                fill="white"
               />
-              {next.focused ? (
-                <>
-                  {/* Glowing circle */}
-                  <filter
-                    id="blur"
-                    x="-50%"
-                    y="-50%"
-                    width="200%"
-                    height="200%"
-                  >
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
-                  </filter>
-                  <circle
-                    cx={getX(next.x)}
-                    cy={getY(next.y)}
-                    r="4"
-                    fill="white"
-                  />
-                  <circle
-                    cx={getX(next.x)}
-                    cy={getY(next.y)}
-                    r="10"
-                    fill="white"
-                    filter="url(#blur)"
-                  />
-                  <circle
-                    cx={getX(next.x)}
-                    cy={getY(next.y)}
-                    r="12"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="1"
-                  />
-                </>
-              ) : (
+
+              <g
+                style={{
+                  transition: "0.3s linear opacity",
+                  opacity: coordinate.focused ? "1" : "0",
+                }}
+              >
+                {/* Glowing circle */}
                 <circle
-                  cx={getX(next.x)}
-                  cy={getY(next.y)}
-                  r="2"
+                  cx={getX(coordinate.x)}
+                  cy={getY(coordinate.y)}
+                  r="4"
                   fill="white"
                 />
-              )}
+                <circle
+                  cx={getX(coordinate.x)}
+                  cy={getY(coordinate.y)}
+                  r="10"
+                  fill="white"
+                  filter={`url(#${`blur${isMobile ? 'mobile' : ''}`})`}
+                />
+              </g>
+              {/* Hover outline */}
+              <OutlineCircle
+                onClick={() => focus(index)}
+                focused={coordinate.focused}
+                cx={getX(coordinate.x)}
+                cy={getY(coordinate.y)}
+                r="12"
+              />
             </React.Fragment>
           );
         })}

@@ -5,7 +5,6 @@
     "dev": "yarn serve & yarn parcelWatch",
     "serve": "firebase serve",
     "parcelWatch": "parcel watch app/clientIndex.jsx --out-dir ../public/bundle --public-url ./",
-    
     "deployStaging": "yarn parcelBuild; firebase use staging; firebase deploy",
     "parcelBuild": "parcel build app/clientIndex.jsx --out-dir ../public/bundle --public-url ./"
   },
@@ -28,10 +27,12 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "slugify": "^1.4.0",
-    "smoothscroll-polyfill": "^0.4.4"
+    "smoothscroll-polyfill": "^0.4.4",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1",
     "firebase-tools": "^8.0.1"
