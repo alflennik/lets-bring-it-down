@@ -1,5 +1,5 @@
 const { GoogleSpreadsheet } = require('google-spreadsheet')
-const moment = require('moment')
+const moment = require('moment-timezone')
 const Markdown = require('markdown-it')
 const functions = require('firebase-functions')
 

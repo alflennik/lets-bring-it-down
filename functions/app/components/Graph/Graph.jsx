@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import styled, { css } from 'styled-components'
 import withMobileVersion from './withMobileVersion'
 
@@ -39,16 +38,11 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
   let x = 0
   for (let i = maxDataPoints - 1; i >= 0; i -= 1) {
     const isFirstCoordinate = i === maxDataPoints - 1
-    const date = moment().subtract(i, 'days').format('YYYY-MM-DD')
+    const isLastCoordinate = i === 0
 
-    const y = dailyInfectionRates[i].value
+    const { value: y, date, formattedDate } = dailyInfectionRates[i]
 
-    coordinates.push({
-      x,
-      y: dailyInfectionRates[i].value,
-      date,
-      isFirstCoordinate
-    })
+    coordinates.push({ x, y, date, formattedDate, isFirstCoordinate, isLastCoordinate })
 
     x += 1
 
@@ -69,15 +63,14 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
 
   const dataPointSpace = 100 / dataPointSpaceCount
   const getX = offset => `${offset * dataPointSpace}%`
-  const formatX = ({ isFirstCoordinate, date }) => {
-    const today = moment().format('YYYY-MM-DD')
-    if (date === today) {
-      return 'Today'
+  const formatX = ({ isFirstCoordinate, isLastCoordinate, date, formattedDate }) => {
+    if (isLastCoordinate) {
+      return formattedDate
     }
     if (isFirstCoordinate || isMobile) {
       return ''
     }
-    return moment(date).format('MMM D')
+    return formattedDate
   }
 
   const maxY = highestY + 0.1

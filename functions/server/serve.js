@@ -1,11 +1,11 @@
 const fs = require('fs').promises
-const moment = require('moment')
+const moment = require('moment-timezone')
 const getRawData = require('./getRawData')
 
 // Enable server-side React
-require.extensions['.css'] = () => {}
 require('@babel/register')
-const render = require('../app/serverIndex.jsx')
+// Disable requiring CSS which won't work in Node (remove when styled-components is used everywhere)
+require.extensions['.css'] = () => {}
 
 let rawData
 let lastFetchedAt
@@ -38,23 +38,34 @@ const serve = async (req, res) => {
     })
   }
 
-  rawData.lastUpdateFormatted = `Last updated ${moment(rawData.lastUpdateTimestamp).fromNow()}`
-
   if (serverRenderedPages[req.path]) {
     res.send(serverRenderedPages[req.path])
   } else {
-    const indexHtml = await fs.readFile('./index.html', 'utf-8')
-    const indexHtmlWithData = indexHtml.replace(
-      'RAW_DATA_FROM_SERVER',
-      `\`${JSON.stringify(rawData)}\``
-    )
-    const indexHtmlEscapedForJs = indexHtmlWithData.replace(/\\/g, '\\\\')
-    const indexHtmlWithReact = indexHtmlEscapedForJs.replace(
-      '<div id="root"></div>',
-      render({ rawData, path: req.path })
-    )
-    res.send(indexHtmlWithReact)
-    serverRenderedPages[req.path] = indexHtmlWithReact
+    let reactRenderedSuccessfully
+    let reactRoot
+    try {
+      const render = require('../app/serverIndex.jsx')
+      reactRoot = render({ rawData, path: req.path })
+      reactRenderedSuccessfully = true
+    } catch (error) {
+      // If there was an error, chances are it will show up on the client as well. Since the server
+      // has pretty terrible error messages, leave the error message to the client
+      reactRenderedSuccessfully = false
+      reactRoot = `<div id="root"></div>`
+    }
+
+    const indexHtmlWithoutData = await fs.readFile('./index.html', 'utf-8')
+    const indexHtml = indexHtmlWithoutData
+      .replace('RAW_DATA_FROM_SERVER', `\`${JSON.stringify(rawData)}\``)
+      .replace(/\\/g, '\\\\') // Backslashes must be doubled when JSON is embedded in a JS string
+
+    if (reactRenderedSuccessfully) {
+      const indexHtmlWithSsr = indexHtml.replace('<div id="root"></div>', reactRoot)
+      serverRenderedPages[req.path] = indexHtmlWithSsr
+      res.send(indexHtmlWithSsr)
+    } else {
+      res.send(indexHtml)
+    }
   }
 
   await dataRefreshed
