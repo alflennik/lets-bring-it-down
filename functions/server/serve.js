@@ -44,12 +44,11 @@ const serve = async (req, res) => {
     let reactRenderedSuccessfully
     let reactRoot
     try {
-      const render = require('../app/serverIndex.jsx')
+      const render = require('../app/serverIndex.jsx') // eslint-disable-line
       reactRoot = render({ rawData, path: req.path })
       reactRenderedSuccessfully = true
     } catch (error) {
-      // If there was an error, chances are it will show up on the client as well. Since the server
-      // has pretty terrible error messages, leave the error message to the client
+      // Render errors are swallowed on the server because the client's error messages are prettier
       reactRenderedSuccessfully = false
       reactRoot = `<div id="root"></div>`
     }
