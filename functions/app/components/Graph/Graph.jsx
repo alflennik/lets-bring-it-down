@@ -12,7 +12,7 @@ const OutlineCircle = styled.circle`
   stroke-width: 1;
   cursor: pointer;
 
-  @media (minwidth: 767px) {
+  @media (min-width: 767px) {
     &:hover {
       opacity: 0.7;
     }
