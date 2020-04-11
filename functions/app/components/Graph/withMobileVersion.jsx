@@ -1,12 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 import React from 'react'
 import './withMobileVersion.css'
 
-const withMobileVersion = (Component, width) => {
+const withMobileVersion = Component => {
   return props => {
     return (
       <>
         <div className='mobile'>
-          <Component {...props} isMobile={true} />
+          <Component {...props} isMobile />
         </div>
         <div className='desktop'>
           <Component {...props} isMobile={false} />

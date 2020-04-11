@@ -17,7 +17,14 @@ const Arrow = ({ size, color, direction }) => {
 }
 
 Arrow.propTypes = {
+  size: PropTypes.string,
+  color: PropTypes.string,
   direction: PropTypes.oneOf(['up', 'down']).isRequired
+}
+
+Arrow.defaultProps = {
+  size: null,
+  color: null
 }
 
 export default Arrow

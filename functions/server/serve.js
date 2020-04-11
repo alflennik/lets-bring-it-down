@@ -3,8 +3,8 @@ const moment = require('moment')
 const getRawData = require('./getRawData')
 
 // Enable server-side React
-require('@babel/register')
 require.extensions['.css'] = () => {}
+require('@babel/register')
 const render = require('../app/serverIndex.jsx')
 
 let rawData
@@ -38,7 +38,7 @@ const serve = async (req, res) => {
     })
   }
 
-  rawData.lastUpdateFormatted = 'Last updated ' + moment(rawData.lastUpdateTimestamp).fromNow()
+  rawData.lastUpdateFormatted = `Last updated ${moment(rawData.lastUpdateTimestamp).fromNow()}`
 
   if (serverRenderedPages[req.path]) {
     res.send(serverRenderedPages[req.path])
@@ -46,7 +46,7 @@ const serve = async (req, res) => {
     const indexHtml = await fs.readFile('./index.html', 'utf-8')
     const indexHtmlWithData = indexHtml.replace(
       'RAW_DATA_FROM_SERVER',
-      '`' + JSON.stringify(rawData) + '`'
+      `\`${JSON.stringify(rawData)}\``
     )
     const indexHtmlEscapedForJs = indexHtmlWithData.replace(/\\/g, '\\\\')
     const indexHtmlWithReact = indexHtmlEscapedForJs.replace(

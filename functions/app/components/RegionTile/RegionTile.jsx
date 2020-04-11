@@ -11,7 +11,7 @@ const RegionTile = ({ region }) => {
       to={`/${region.slug}`}
       className={`region-tile ${isReducing ? 'region-tile-reducing' : 'region-tile-growing'}`}
     >
-      {region.image ? <img alt={`Image of ${region.name}`} src={region.image} /> : null}
+      {region.image ? <img alt={region.name} src={region.image} /> : null}
       <div className='region-tile-name'>{region.name}</div>
       <div className='region-tile-value'>{region.dailyInfectionRates[0].formattedValue}</div>
       <DownFromYesterday
@@ -23,7 +23,7 @@ const RegionTile = ({ region }) => {
 }
 
 RegionTile.propTypes = {
-  region: regionPropTypes
+  region: regionPropTypes.isRequired
 }
 
 export default RegionTile

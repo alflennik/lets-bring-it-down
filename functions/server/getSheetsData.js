@@ -22,12 +22,12 @@ const getSheetsData = async () => {
   const sheet = await loadSheet()
 
   const dailyInfectionRatesByRegion = []
-  for (let row = 1; row < 54; row++) {
-    let region = {}
+  for (let row = 1; row < 54; row += 1) {
+    const region = {}
     const regionNameColumn = 2
     region.name = sheet.getCell(row, regionNameColumn).formattedValue
     region.dailyInfectionRates = []
-    for (let column = 4; column < 34; column++) {
+    for (let column = 4; column < 34; column += 1) {
       const cell = sheet.getCell(row, column)
       if (cell.formattedValue) {
         region.dailyInfectionRates.push({

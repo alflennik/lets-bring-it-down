@@ -16,7 +16,8 @@ const SmoothScrollLink = ({ id, className, children }) => {
 
 SmoothScrollLink.propTypes = {
   id: PropTypes.string.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired
 }
 
 SmoothScrollLink.defaultProps = {

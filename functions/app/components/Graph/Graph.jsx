@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 import styled, { css } from 'styled-components'
 import withMobileVersion from './withMobileVersion'
@@ -36,7 +37,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
   let highestY = -Infinity
   let lowestY = Infinity
   let x = 0
-  for (var i = maxDataPoints - 1; i >= 0; i -= 1) {
+  for (let i = maxDataPoints - 1; i >= 0; i -= 1) {
     const isFirstCoordinate = i === maxDataPoints - 1
     const date = moment().subtract(i, 'days').format('YYYY-MM-DD')
 
@@ -154,8 +155,8 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
         />
 
         {/* Graph Lines */}
-        {coordinates.map((previous, index) => {
-          const next = coordinates[index + 1]
+        {coordinates.map((previous, currentIndex) => {
+          const next = coordinates[currentIndex + 1]
           if (!next) {
             return null
           }
@@ -173,7 +174,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
         })}
 
         {/* Circles */}
-        {coordinates.map((coordinate, index) => {
+        {coordinates.map((coordinate, currentIndex) => {
           if (coordinate.isFirstCoordinate) {
             return null
           }
@@ -207,7 +208,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
               </g>
               {/* Hover outline */}
               <OutlineCircle
-                onClick={() => focus(index)}
+                onClick={() => focus(currentIndex)}
                 focused={coordinate.focused}
                 cx={getX(coordinate.x)}
                 cy={getY(coordinate.y)}
@@ -263,6 +264,18 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
       </svg>
     </div>
   )
+}
+
+Graph.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  dailyInfectionRates: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.number,
+      formattedValue: PropTypes.string
+    })
+  ).isRequired,
+  onFocus: PropTypes.func.isRequired
 }
 
 export default withMobileVersion(Graph)

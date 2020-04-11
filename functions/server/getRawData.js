@@ -1,7 +1,5 @@
-const path = require('path')
-const fs = require('fs').promises
-const getSheetsData = require('./getSheetsData')
 const slugify = require('slugify')
+const getSheetsData = require('./getSheetsData')
 
 const slugsWithoutImages = ['puerto-rico']
 

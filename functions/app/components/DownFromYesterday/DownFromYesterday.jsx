@@ -1,6 +1,7 @@
 import React from 'react'
-import Arrow from './Arrow'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Arrow from './Arrow'
 
 const WrapperDiv = styled.div`
   white-space: nowrap;
@@ -27,6 +28,17 @@ const DownFromYesterday = ({ today, yesterday }) => {
       {yesterday.formattedValue}
     </WrapperDiv>
   )
+}
+
+DownFromYesterday.propTypes = {
+  today: PropTypes.shape({
+    value: PropTypes.number,
+    formattedValue: PropTypes.string
+  }).isRequired,
+  yesterday: PropTypes.shape({
+    value: PropTypes.number,
+    formattedValue: PropTypes.string
+  }).isRequired
 }
 
 export default DownFromYesterday
