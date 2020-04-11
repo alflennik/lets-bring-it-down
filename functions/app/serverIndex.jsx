@@ -4,9 +4,9 @@ import { StaticRouter } from "react-router-dom";
 import App from "./components/App";
 import { ServerStyleSheet } from "styled-components";
 
-const sheet = new ServerStyleSheet();
-
 const render = ({ path, rawData }) => {
+  const sheet = new ServerStyleSheet();
+
   const context = {};
 
   const rootHtml = ReactDOMServer.renderToString(
