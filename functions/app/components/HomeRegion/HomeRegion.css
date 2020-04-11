@@ -14,7 +14,9 @@
   box-sizing: border-box;
   padding: 1.5rem;
 }
-.header-title, .header-faq, .header-states {
+.header-title,
+.header-faq,
+.header-states {
   color: white;
   text-decoration: none;
 }
@@ -34,14 +36,16 @@
   font-weight: bold;
   align-items: center;
 }
-.header-faq, .header-states {
+.header-faq,
+.header-states {
   font-size: 20px;
 }
 .header-menu > :first-child {
   margin-right: 1.5rem;
 }
 @media (max-width: 600px) {
-  .header-faq, .header-states {
+  .header-faq,
+  .header-states {
     font-size: 16px;
   }
   .header-menu > :first-child {
@@ -54,7 +58,7 @@
   height: 200px;
   perspective: 1500px;
 }
- .flip-card-inner {
+.flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
@@ -66,7 +70,8 @@
 .flip-card-flipped .flip-card-inner {
   transform: rotateY(-180deg);
 }
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -127,7 +132,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
-.center-yesterday-arrow, 
+.center-yesterday-arrow,
 .center-tomorrow-arrow {
   width: 15px;
   cursor: pointer;

@@ -1,5 +1,5 @@
 const path = require('path')
-const fs = require('fs').promises;
+const fs = require('fs').promises
 const getSheetsData = require('./getSheetsData')
 const slugify = require('slugify')
 
@@ -14,7 +14,7 @@ const getRegion = async ({ name, dailyInfectionRates }) => {
   }
 
   return {
-    name, 
+    name,
     dailyInfectionRates,
     image,
     slug: slugify(name, { lower: true })
@@ -22,11 +22,7 @@ const getRegion = async ({ name, dailyInfectionRates }) => {
 }
 
 const getRawData = async () => {
-  const {
-    dailyInfectionRatesByRegion, 
-    lastUpdateTimestamp, 
-    faqHtml
-  } = await getSheetsData()
+  const { dailyInfectionRatesByRegion, lastUpdateTimestamp, faqHtml } = await getSheetsData()
 
   const regions = await Promise.all(dailyInfectionRatesByRegion.map(getRegion))
 

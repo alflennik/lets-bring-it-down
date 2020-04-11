@@ -53,7 +53,8 @@
   object-fit: contain;
   position: absolute;
 }
-.region-tile-name, .region-tile-value {
+.region-tile-name,
+.region-tile-value {
   text-transform: uppercase;
 }
 .region-tile-name {

@@ -6,17 +6,21 @@ const SmoothScrollLink = ({ id, className, children }) => {
     event.preventDefault()
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' })
   }
-  
-  return <a onClick={click} href={id} className={className}>{children}</a>
+
+  return (
+    <a onClick={click} href={id} className={className}>
+      {children}
+    </a>
+  )
 }
 
 SmoothScrollLink.propTypes = {
   id: PropTypes.string.isRequired,
-  className: PropTypes.string,
+  className: PropTypes.string
 }
 
 SmoothScrollLink.defaultProps = {
-  className: '',
+  className: ''
 }
 
 export default SmoothScrollLink

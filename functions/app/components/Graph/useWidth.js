@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 const useWidth = () => {
   const [width, setWidth] = useState(window.innerWidth)
-  
+
   useEffect(() => {
     const listener = () => {
       setWidth(window.innerWidth)

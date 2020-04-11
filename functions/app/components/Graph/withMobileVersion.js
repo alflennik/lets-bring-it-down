@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react'
 import './withMobileVersion.css'
 
 const withMobileVersion = (Component, width) => {
-  return (props) => {
+  return props => {
     return (
       <>
-        <div className="mobile">
+        <div className='mobile'>
           <Component {...props} isMobile={true} />
         </div>
-        <div className="desktop">
+        <div className='desktop'>
           <Component {...props} isMobile={false} />
         </div>
       </>
-    );
-  };
-};
+    )
+  }
+}
 
-export default withMobileVersion;
+export default withMobileVersion

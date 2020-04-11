@@ -9,7 +9,7 @@ const App = ({ isServerRendered, rawData }) => {
 
   const slug = location.pathname.slice(1)
   const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
-  
+
   useEffect(() => {
     // Make external links open in a new tab
     document.querySelectorAll('a').forEach(element => {
@@ -26,9 +26,9 @@ const App = ({ isServerRendered, rawData }) => {
 
   return (
     <>
-      <div id="home" />
+      <div id='home' />
       <HomeRegion region={region} lastUpdateFormatted={rawData.lastUpdateFormatted} />
-      <div id="states" className="region-tiles">
+      <div id='states' className='region-tiles'>
         {rawData.regions.slice(1).map(region => (
           <RegionTile key={region.slug} region={region} />
         ))}

@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "yarn serve & yarn parcelWatch",
     "serve": "firebase serve",
-    "parcelWatch": "parcel watch app/clientIndex.jsx --out-dir ../public/bundle --public-url ./",
     "deployStaging": "yarn parcelBuild; firebase use staging; firebase deploy",
+    "deployProduction": "yarn parcelBuild; firebase use production; firebase deploy",
+    "parcelWatch": "parcel watch app/clientIndex.jsx --out-dir ../public/bundle --public-url ./",
     "parcelBuild": "parcel build app/clientIndex.jsx --out-dir ../public/bundle --public-url ./"
   },
   "engines": {
@@ -36,7 +37,8 @@
     "babel-plugin-styled-components": "^1.10.7",
     "eslint": "^5.12.0",
     "eslint-plugin-promise": "^4.0.1",
-    "firebase-tools": "^8.0.1"
+    "firebase-tools": "^8.0.1",
+    "prettier": "^2.0.4"
   },
   "private": true
 }
