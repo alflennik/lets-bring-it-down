@@ -34,9 +34,9 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
   }, [location])
 
   useEffect(() => {
-    const value = region.dailyInfectionRates[index].value
-    document.body.style['background-color'] = value <= 0 ? '#2ac29f' : '#ff485e'
-  }, [region.slug, index])
+    const { isIncreasing } = region.dailyInfectionRates[index]
+    document.body.style['background-color'] = isIncreasing ? '#ff485e' : '#2ac29f'
+  }, [region.slug, region.dailyInfectionRates, index])
 
   return (
     <main className='above-fold'>

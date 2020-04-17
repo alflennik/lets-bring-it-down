@@ -34,10 +34,12 @@ const getRawData = async () => {
 
       const { value, formattedValue } = rate
 
+      const isIncreasing = !rawRates[index + 1] || rawRates[index + 1].value <= value
+
       const date = moment(lastUpdateTimestamp).subtract(index, 'days').format('YYYY-MM-DD')
       const formattedDate = date === today ? 'Today' : moment(date).format('MMM D')
 
-      return { date, formattedDate, value, formattedValue }
+      return { date, formattedDate, value, formattedValue, isIncreasing }
     })
 
     return { name, dailyInfectionRates, image, slug }

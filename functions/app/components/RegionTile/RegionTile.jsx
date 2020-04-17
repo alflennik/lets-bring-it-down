@@ -5,11 +5,11 @@ import DownFromYesterday from '../DownFromYesterday'
 import './RegionTile.css'
 
 const RegionTile = ({ region }) => {
-  const isReducing = region.dailyInfectionRates[0].value <= 0
+  const { isIncreasing } = region.dailyInfectionRates[0]
   return (
     <Link
       to={`/${region.slug}`}
-      className={`region-tile ${isReducing ? 'region-tile-reducing' : 'region-tile-growing'}`}
+      className={`region-tile ${isIncreasing ? 'region-tile-growing' : 'region-tile-reducing'}`}
     >
       {region.image ? <img alt={region.name} src={region.image} /> : null}
       <div className='region-tile-name'>{region.name}</div>
