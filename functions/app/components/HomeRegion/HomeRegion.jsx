@@ -63,7 +63,18 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
               />
             </div>
           }
-          back={<strong>Back</strong>}
+          back={
+            <div className='center-wrap'>
+              <div className='center-new-case-growth'>
+                <TextFit mode='single'>New case doubling in</TextFit>
+              </div>
+              <div className='center-region-name'>
+                <TextFit mode='single' min={9} max={80}>
+                  {region.dailyNewCaseGrowth[dateOffset].doublingInDays} days
+                </TextFit>
+              </div>
+            </div>
+          }
         />
         <div className='center-last-update'>{lastUpdateFormatted}</div>
       </div>

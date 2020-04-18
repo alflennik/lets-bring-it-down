@@ -47,7 +47,6 @@ const Arrow = ({ size, color, direction }) => {
         setCurrentBaseDirection(direction)
       }
     }, flipAnimationDurationMs)
-
     return () => {
       clearTimeout(timeoutId)
     }

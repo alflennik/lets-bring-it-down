@@ -18,7 +18,7 @@ const getRawData = async () => {
   const timeFormatted = moment(lastUpdateTimestamp).format('h:mm A z')
   const lastUpdateFormatted = `Last Updated ${dayFormatted} ${timeFormatted}`
 
-  const regions = dailyNewCaseGrowthByRegion.map(({ name, dailyNewCaseGrowth: rawRates }) => {
+  const regions = dailyNewCaseGrowthByRegion.map(({ name, dailyNewCaseGrowth: rawGrowth }) => {
     const slug = slugify(name, { lower: true })
 
     let image = null
@@ -26,17 +26,19 @@ const getRawData = async () => {
       image = `/regions/${slug}.svg`
     }
 
-    const dailyNewCaseGrowth = rawRates.map((rate, index) => {
-      if (rate === null) return null
+    const dailyNewCaseGrowth = rawGrowth.map((growth, index) => {
+      if (growth === null) return null
 
-      const { value, formattedValue } = rate
-
-      const isIncreasing = !rawRates[index + 1] || rawRates[index + 1].value <= value
+      const { value, formattedValue } = growth
 
       const date = moment(lastUpdateTimestamp).subtract(index, 'days').format('YYYY-MM-DD')
       const formattedDate = date === today ? 'Today' : moment(date).format('MMM D')
 
-      return { date, formattedDate, value, formattedValue, isIncreasing }
+      const doublingInDays = Math.round(Math.log10(2) / Math.log10(1 + value))
+
+      const isIncreasing = !rawGrowth[index + 1] || rawGrowth[index + 1].value <= value
+
+      return { date, formattedDate, value, formattedValue, doublingInDays, isIncreasing }
     })
 
     return { name, dailyNewCaseGrowth, image, slug }
