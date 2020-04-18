@@ -21,24 +21,24 @@ const loadSheet = async () => {
 const getSheetsData = async () => {
   const sheet = await loadSheet()
 
-  const dailyInfectionRatesByRegion = []
+  const dailyNewCaseGrowthByRegion = []
   for (let row = 1; row < 54; row += 1) {
     const region = {}
     const regionNameColumn = 2
     region.name = sheet.getCell(row, regionNameColumn).formattedValue
-    region.dailyInfectionRates = []
+    region.dailyNewCaseGrowth = []
     for (let column = 4; column < 34; column += 1) {
       const cell = sheet.getCell(row, column)
       if (cell.formattedValue) {
-        region.dailyInfectionRates.push({
+        region.dailyNewCaseGrowth.push({
           value: cell.value === null ? 0 : cell.value, // 0 will be returned as null
           formattedValue: cell.formattedValue
         })
       } else {
-        region.dailyInfectionRates.push(null)
+        region.dailyNewCaseGrowth.push(null)
       }
     }
-    dailyInfectionRatesByRegion.push(region)
+    dailyNewCaseGrowthByRegion.push(region)
   }
 
   const lastUpdateUnix = sheet.getCellByA1('B2').value
@@ -46,7 +46,7 @@ const getSheetsData = async () => {
 
   const faqMarkdown = sheet.getCellByA1('B6').value
   const faqHtml = markdown.render(faqMarkdown)
-  return { dailyInfectionRatesByRegion, lastUpdateTimestamp, faqHtml }
+  return { dailyNewCaseGrowthByRegion, lastUpdateTimestamp, faqHtml }
 }
 
 module.exports = getSheetsData

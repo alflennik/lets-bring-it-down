@@ -5,7 +5,7 @@ const getSheetsData = require('./getSheetsData')
 const slugsWithoutImages = ['puerto-rico']
 
 const getRawData = async () => {
-  const { dailyInfectionRatesByRegion, lastUpdateTimestamp, faqHtml } = await getSheetsData()
+  const { dailyNewCaseGrowthByRegion, lastUpdateTimestamp, faqHtml } = await getSheetsData()
 
   const lastUpdatedDate = moment(lastUpdateTimestamp).format('YYYY-MM-DD')
   const today = moment().format('YYYY-MM-DD')
@@ -18,7 +18,7 @@ const getRawData = async () => {
   const timeFormatted = moment(lastUpdateTimestamp).format('h:mm A z')
   const lastUpdateFormatted = `Last Updated ${dayFormatted} ${timeFormatted}`
 
-  const regions = dailyInfectionRatesByRegion.map(({ name, dailyInfectionRates: rawRates }) => {
+  const regions = dailyNewCaseGrowthByRegion.map(({ name, dailyNewCaseGrowth: rawRates }) => {
     const slug = slugify(name, { lower: true })
 
     let image = null
@@ -26,7 +26,7 @@ const getRawData = async () => {
       image = `/regions/${slug}.svg`
     }
 
-    const dailyInfectionRates = rawRates.map((rate, index) => {
+    const dailyNewCaseGrowth = rawRates.map((rate, index) => {
       if (rate === null) return null
 
       const { value, formattedValue } = rate
@@ -39,7 +39,7 @@ const getRawData = async () => {
       return { date, formattedDate, value, formattedValue, isIncreasing }
     })
 
-    return { name, dailyInfectionRates, image, slug }
+    return { name, dailyNewCaseGrowth, image, slug }
   })
 
   return { regions, lastUpdateFormatted, faqHtml }

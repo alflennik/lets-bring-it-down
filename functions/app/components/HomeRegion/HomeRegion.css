@@ -100,18 +100,18 @@
   font-weight: bold;
   line-height: 1;
 }
-.center-infection-rate,
+.center-new-case-growth,
 .center-region-name {
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
   white-space: nowrap;
 }
-.center-infection-rate {
+.center-new-case-growth {
   line-height: 1;
   width: 230px;
 }
-.center-infection-rate span {
+.center-new-case-growth span {
   font-size: 34px;
 }
 .center-region-name {

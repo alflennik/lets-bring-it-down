@@ -25,7 +25,7 @@ const OutlineCircle = styled.circle`
     `}
 `
 
-const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
+const Graph = ({ isMobile, index, dailyNewCaseGrowth, onFocus }) => {
   const maxDataPoints = 9
 
   const paddingLeft = isMobile ? 40 : 60
@@ -40,7 +40,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
     const isFirstCoordinate = i === maxDataPoints - 1
     const isLastCoordinate = i === 0
 
-    const { value: y, date, formattedDate } = dailyInfectionRates[i]
+    const { value: y, date, formattedDate } = dailyNewCaseGrowth[i]
 
     coordinates.push({ x, y, date, formattedDate, isFirstCoordinate, isLastCoordinate })
 
@@ -262,7 +262,7 @@ const Graph = ({ isMobile, index, dailyInfectionRates, onFocus }) => {
 Graph.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  dailyInfectionRates: PropTypes.arrayOf(
+  dailyNewCaseGrowth: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.number,
       formattedValue: PropTypes.string

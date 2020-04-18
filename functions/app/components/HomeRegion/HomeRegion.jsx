@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Textfit as TextFit } from 'react-textfit'
 import Graph from '../Graph'
 import SmoothScrollLink from '../SmoothScrollLink'
@@ -8,35 +8,13 @@ import DownFromYesterday from '../DownFromYesterday'
 import regionPropTypes from '../App/regionPropTypes'
 import './HomeRegion.css'
 
-// Populate primary region data with the United States as a fallback
-// const slug = window.location.pathname.slice(1)
-// const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
-
-// document.querySelector('#yesterday-arrow').addEventListener('click', () => {
-//   document.querySelector('#center-card').classList.add('flip-card-flipped')
-//   document.querySelector('#yesterday-arrow').style.opacity = 0
-//   document.querySelector('#tomorrow-arrow').style.opacity = 1
-// })
-// document.querySelector('#tomorrow-arrow').addEventListener('click', () => {
-//   document.querySelector('#center-card').classList.remove('flip-card-flipped')
-//   document.querySelector('#tomorrow-arrow').style.opacity = 0
-//   document.querySelector('#yesterday-arrow').style.opacity = 1
-// })
-
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
-  const location = useLocation()
-  const [index, setIndex] = useState(0)
-
-  const [isFlipped, setIsFlipped] = useState(false)
-  useEffect(() => {
-    setIsFlipped(false)
-    setIndex(0)
-  }, [location])
+  const [dateOffset, setDateOffset] = useState(0)
 
   useEffect(() => {
-    const { isIncreasing } = region.dailyInfectionRates[index]
+    const { isIncreasing } = region.dailyNewCaseGrowth[dateOffset]
     document.body.style['background-color'] = isIncreasing ? '#ff485e' : '#2ac29f'
-  }, [region.slug, region.dailyInfectionRates, index])
+  }, [region.slug, region.dailyNewCaseGrowth, dateOffset])
 
   return (
     <main className='above-fold'>
@@ -58,56 +36,30 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
         {region.image ? (
           <img className='center-region-image' alt='Region outline' src={region.image} />
         ) : null}
-        <div id='center-card' className={`flip-card ${isFlipped ? 'flip-card-flipped' : ''}`}>
-          <div className='flip-card-inner'>
-            <div className='flip-card-front'>
-              <div className='center-wrap'>
-                <div className='center-infection-rate'>
-                  <TextFit mode='single'>New case growth</TextFit>
-                </div>
-                <div className='center-region-name'>
-                  <TextFit mode='single' min={9} max={80}>
-                    {region.name}
-                  </TextFit>
-                </div>
-                <div className='center-number'>
-                  {region.dailyInfectionRates[index].formattedValue}
-                </div>
-                <DownFromYesterday
-                  today={region.dailyInfectionRates[index]}
-                  yesterday={region.dailyInfectionRates[index + 1]}
-                />
-              </div>
-            </div>
-            {/* <div className="flip-card-back">
-              <div className="center-infection-rate">
-              </div>
-              <div className="center-number">{region.dailyInfectionRates[1].formattedValue}</div>
-              <div className="center-region-name">{region.name}</div>
-            </div> */}
+
+        <div className='center-wrap'>
+          <div className='center-new-case-growth'>
+            <TextFit mode='single'>New case growth</TextFit>
           </div>
+          <div className='center-region-name'>
+            <TextFit mode='single' min={9} max={80}>
+              {region.name}
+            </TextFit>
+          </div>
+          <div className='center-number'>
+            {region.dailyNewCaseGrowth[dateOffset].formattedValue}
+          </div>
+          <DownFromYesterday
+            today={region.dailyNewCaseGrowth[dateOffset]}
+            yesterday={region.dailyNewCaseGrowth[dateOffset + 1]}
+          />
         </div>
-        {/* <div className="center-arrow-wrapper">
-          <img 
-            style={{ opacity: isFlipped ? 0 : 1 }}
-            className="center-yesterday-arrow"
-            src="angle-left-solid.svg"
-            alt="View yesterday"
-            onClick={() => {
-              setIsFlipped(true)
-            }}
-          />
-          <img 
-            style={{ opacity: isFlipped ? 1 : 0 }}
-            className="center-tomorrow-arrow"
-            src="angle-right-white.svg"
-            alt="View tomorrow"
-            onClick={() => {
-              setIsFlipped(false)
-            }}
-          />
-        </div> */}
-        <Graph index={index} dailyInfectionRates={region.dailyInfectionRates} onFocus={setIndex} />
+
+        <Graph
+          index={dateOffset}
+          dailyNewCaseGrowth={region.dailyNewCaseGrowth}
+          onFocus={setDateOffset}
+        />
         <div className='center-last-update'>{lastUpdateFormatted}</div>
       </div>
 
