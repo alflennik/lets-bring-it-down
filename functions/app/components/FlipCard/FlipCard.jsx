@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 200px;
+  height: ${props => props.height};
   perspective: 1500px;
 `
 
@@ -43,7 +43,6 @@ const ArrowWrapper = styled.div`
   position: absolute;
   top: -7px;
   left: 50%;
-  bottom: 0;
   transform: translateX(-50%);
   width: 97vw;
   max-width: 340px;
@@ -58,7 +57,7 @@ const ArrowImg = styled.img`
   transition: opacity 0.3s linear;
 `
 
-const FlipCard = ({ front, back }) => {
+const FlipCard = ({ height, front, back }) => {
   const location = useLocation()
 
   const [isFlipped, setIsFlipped] = useState(false)
@@ -68,7 +67,7 @@ const FlipCard = ({ front, back }) => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper height={height}>
         <Inner isFlipped={isFlipped}>
           <Side>{front}</Side>
           <Side isBackside>{back}</Side>
@@ -99,6 +98,7 @@ const FlipCard = ({ front, back }) => {
 }
 
 FlipCard.propTypes = {
+  height: PropTypes.string.isRequired,
   front: PropTypes.node.isRequired,
   back: PropTypes.node.isRequired
 }

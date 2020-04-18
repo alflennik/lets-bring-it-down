@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Textfit as TextFit } from 'react-textfit'
 import Graph from '../Graph'
 import SmoothScrollLink from '../SmoothScrollLink'
@@ -11,11 +11,16 @@ import FlipCard from '../FlipCard/FlipCard'
 
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
   const [dateOffset, setDateOffset] = useState(0)
+  const location = useLocation()
 
   useEffect(() => {
     const { isIncreasing } = region.dailyNewCaseGrowth[dateOffset]
     document.body.style['background-color'] = isIncreasing ? '#ff485e' : '#2ac29f'
   }, [region.slug, region.dailyNewCaseGrowth, dateOffset])
+
+  useEffect(() => {
+    setDateOffset(0)
+  }, [location.pathname])
 
   return (
     <main className='above-fold'>
@@ -39,6 +44,7 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
         ) : null}
 
         <FlipCard
+          height='350px'
           front={
             <div className='center-wrap'>
               <div className='center-new-case-growth'>
