@@ -9,14 +9,11 @@ const getRawData = async () => {
 
   const lastUpdatedDate = moment(lastUpdateTimestamp).format('YYYY-MM-DD')
   const today = moment().format('YYYY-MM-DD')
-  const yesterday = moment().subtract(1, 'day').format('YYYY-MM-DD')
   let dayFormatted
   if (lastUpdatedDate === today) {
     dayFormatted = ''
-  } else if (lastUpdatedDate === yesterday) {
-    dayFormatted = 'Yesterday'
   } else {
-    dayFormatted = moment(lastUpdateTimestamp).format('MMM D')
+    dayFormatted = moment(lastUpdateTimestamp).format('MMM D [at]')
   }
   const timeFormatted = moment(lastUpdateTimestamp).format('h:mm A z')
   const lastUpdateFormatted = `Last Updated ${dayFormatted} ${timeFormatted}`
