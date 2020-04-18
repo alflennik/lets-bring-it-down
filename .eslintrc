@@ -1,4 +1,4 @@
 {
-  "extends": ["airbnb", "airbnb/hooks", "prettier"],
-  "globals": { "document": true }
+  "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
+  "globals": { "document": true, "setTimeout": true }
 }

@@ -53,35 +53,6 @@
   }
 }
 
-.flip-card {
-  width: 100%;
-  height: 200px;
-  perspective: 1500px;
-}
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-  -moz-backface-visibility: hidden;
-}
-.flip-card-flipped .flip-card-inner {
-  transform: rotateY(-180deg);
-}
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-.flip-card-back {
-  transform: rotateY(180deg);
-}
-
 .center {
   text-align: center;
   position: absolute;
@@ -119,24 +90,6 @@
   letter-spacing: 6px;
   line-height: 1;
   width: 290px;
-}
-.center-arrow-wrapper {
-  position: absolute;
-  top: -7px;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 97vw;
-  max-width: 340px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.center-yesterday-arrow,
-.center-tomorrow-arrow {
-  width: 15px;
-  cursor: pointer;
-  transition: opacity 0.3s linear;
 }
 .center-last-update {
   font-size: 17px;

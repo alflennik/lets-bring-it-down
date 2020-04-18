@@ -7,6 +7,7 @@ import SmoothScrollLink from '../SmoothScrollLink'
 import DownFromYesterday from '../DownFromYesterday'
 import regionPropTypes from '../App/regionPropTypes'
 import './HomeRegion.css'
+import FlipCard from '../FlipCard/FlipCard'
 
 const HomeRegion = ({ region, lastUpdateFormatted }) => {
   const [dateOffset, setDateOffset] = useState(0)
@@ -37,28 +38,32 @@ const HomeRegion = ({ region, lastUpdateFormatted }) => {
           <img className='center-region-image' alt='Region outline' src={region.image} />
         ) : null}
 
-        <div className='center-wrap'>
-          <div className='center-new-case-growth'>
-            <TextFit mode='single'>New case growth</TextFit>
-          </div>
-          <div className='center-region-name'>
-            <TextFit mode='single' min={9} max={80}>
-              {region.name}
-            </TextFit>
-          </div>
-          <div className='center-number'>
-            {region.dailyNewCaseGrowth[dateOffset].formattedValue}
-          </div>
-          <DownFromYesterday
-            today={region.dailyNewCaseGrowth[dateOffset]}
-            yesterday={region.dailyNewCaseGrowth[dateOffset + 1]}
-          />
-        </div>
-
-        <Graph
-          index={dateOffset}
-          dailyNewCaseGrowth={region.dailyNewCaseGrowth}
-          onFocus={setDateOffset}
+        <FlipCard
+          front={
+            <div className='center-wrap'>
+              <div className='center-new-case-growth'>
+                <TextFit mode='single'>New case growth</TextFit>
+              </div>
+              <div className='center-region-name'>
+                <TextFit mode='single' min={9} max={80}>
+                  {region.name}
+                </TextFit>
+              </div>
+              <div className='center-number'>
+                {region.dailyNewCaseGrowth[dateOffset].formattedValue}
+              </div>
+              <DownFromYesterday
+                today={region.dailyNewCaseGrowth[dateOffset]}
+                yesterday={region.dailyNewCaseGrowth[dateOffset + 1]}
+              />
+              <Graph
+                index={dateOffset}
+                dailyNewCaseGrowth={region.dailyNewCaseGrowth}
+                onFocus={setDateOffset}
+              />
+            </div>
+          }
+          back={<strong>Back</strong>}
         />
         <div className='center-last-update'>{lastUpdateFormatted}</div>
       </div>

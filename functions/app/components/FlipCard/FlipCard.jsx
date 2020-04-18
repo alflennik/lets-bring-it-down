@@ -1,59 +1,106 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { useLocation } from 'react-router-dom'
+import styled, { css } from 'styled-components'
 
-const FlipCard = () => {
+const Wrapper = styled.div`
+  width: 100%;
+  height: 200px;
+  perspective: 1500px;
+`
+
+const Inner = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  -moz-backface-visibility: hidden; /* Fixes transparency quirk in Firefox */
+
+  ${props =>
+    props.isFlipped &&
+    css`
+      transform: rotateY(-180deg);
+    `}
+`
+
+const Side = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+
+  ${props =>
+    props.isBackside &&
+    css`
+      transform: rotateY(180deg);
+    `}
+`
+
+const ArrowWrapper = styled.div`
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 97vw;
+  max-width: 340px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+
+const ArrowImg = styled.img`
+  width: 15px;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+`
+
+const FlipCard = ({ front, back }) => {
   const location = useLocation()
 
   const [isFlipped, setIsFlipped] = useState(false)
   useEffect(() => {
     setIsFlipped(false)
-    setIndex(0)
   }, [location])
-  // Populate primary region data with the United States as a fallback
-// const slug = window.location.pathname.slice(1)
-// const region = rawData.regions.find(data => data.slug === slug) || rawData.regions[0]
 
-// document.querySelector('#yesterday-arrow').addEventListener('click', () => {
-//   document.querySelector('#center-card').classList.add('flip-card-flipped')
-//   document.querySelector('#yesterday-arrow').style.opacity = 0
-//   document.querySelector('#tomorrow-arrow').style.opacity = 1
-// })
-// document.querySelector('#tomorrow-arrow').addEventListener('click', () => {
-//   document.querySelector('#center-card').classList.remove('flip-card-flipped')
-//   document.querySelector('#tomorrow-arrow').style.opacity = 0
-//   document.querySelector('#yesterday-arrow').style.opacity = 1
-// })
-  <div id='center-card' className={`flip-card ${isFlipped ? 'flip-card-flipped' : ''}`}>
-  <div className='flip-card-inner'>
-    <div className='flip-card-front'>
-  </div>
-</div>
-{/* <div className="center-arrow-wrapper">
-  <img 
-    style={{ opacity: isFlipped ? 0 : 1 }}
-    className="center-yesterday-arrow"
-    src="angle-left-solid.svg"
-    alt="View yesterday"
-    onClick={() => {
-      setIsFlipped(true)
-    }}
-  />
-  <img 
-    style={{ opacity: isFlipped ? 1 : 0 }}
-    className="center-tomorrow-arrow"
-    src="angle-right-white.svg"
-    alt="View tomorrow"
-    onClick={() => {
-      setIsFlipped(false)
-    }}
-  />
-</div> */}
-        {/* <div className="flip-card-back">
-              <div className="center-new-case-growth">
-              </div>
-              <div className="center-number">{region.dailyNewCaseGrowth[1].formattedValue}</div>
-              <div className="center-region-name">{region.name}</div>
-            </div> */}
+  return (
+    <>
+      <Wrapper>
+        <Inner isFlipped={isFlipped}>
+          <Side>{front}</Side>
+          <Side isBackside>{back}</Side>
+        </Inner>
+      </Wrapper>
+      <ArrowWrapper>
+        <ArrowImg
+          style={{ opacity: isFlipped ? 0 : 1 }}
+          className='center-yesterday-arrow'
+          src='angle-left-solid.svg'
+          alt='View back of card'
+          onClick={() => {
+            setIsFlipped(true)
+          }}
+        />
+        <ArrowImg
+          style={{ opacity: isFlipped ? 1 : 0 }}
+          className='center-tomorrow-arrow'
+          src='angle-right-white.svg'
+          alt='View front of card'
+          onClick={() => {
+            setIsFlipped(false)
+          }}
+        />
+      </ArrowWrapper>
+    </>
+  )
+}
+
+FlipCard.propTypes = {
+  front: PropTypes.node.isRequired,
+  back: PropTypes.node.isRequired
 }
 
 export default FlipCard
