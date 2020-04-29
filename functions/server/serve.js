@@ -25,6 +25,8 @@ const serve = async (req, res) => {
     rawData = await getRawData()
     lastFetchedAt = moment()
     serverRenderedPages = {}
+  } else {
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
   }
 
   let dataRefreshed
