@@ -4,7 +4,7 @@ const getRawData = require('./getRawData')
 
 // Enable server-side React
 require('@babel/register')
-// Disable requiring CSS which won't work in Node (remove when styled-components is used everywhere)
+// Disable requiring CSS which won't work in Node
 require.extensions['.css'] = () => {}
 
 let rawData
@@ -25,8 +25,9 @@ const serve = async (req, res) => {
     rawData = await getRawData()
     lastFetchedAt = moment()
     serverRenderedPages = {}
-  } else {
-    res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
+  } else if (req.url === '/') {
+    const cdnCacheDuration = 365 * 24 * 60 * 60 // One year, i.e. it must be manually invalidated
+    res.set('Cache-Control', `public, max-age=300, s-maxage=${cdnCacheDuration}`)
   }
 
   let dataRefreshed
