@@ -13,8 +13,8 @@ const loadSheet = async () => {
     private_key: sheets.private_key.replace(/\\n/g, '\n')
   })
   await doc.loadInfo()
-  const sheet = doc.sheetsById['218962479']
-  await sheet.loadCells('A1:AI54')
+  const sheet = doc.sheetsById['1858367492']
+  await sheet.loadCells('A1:CC54')
   return sheet
 }
 
@@ -25,9 +25,10 @@ const getSheetsData = async () => {
   for (let row = 1; row < 54; row += 1) {
     const region = {}
     const regionNameColumn = 2
+    const totalNewCasesColumn = 3
     region.name = sheet.getCell(row, regionNameColumn).formattedValue
     region.dailyNewCaseGrowth = []
-    for (let column = 4; column < 34; column += 1) {
+    for (let column = 7; column < 37; column += 1) {
       const cell = sheet.getCell(row, column)
       if (cell.formattedValue) {
         region.dailyNewCaseGrowth.push({
@@ -38,6 +39,9 @@ const getSheetsData = async () => {
         region.dailyNewCaseGrowth.push(null)
       }
     }
+
+    region.totalNewCases = sheet.getCell(row, totalNewCasesColumn).value
+
     dailyNewCaseGrowthByRegion.push(region)
   }
 
